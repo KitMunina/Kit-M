@@ -30,7 +30,8 @@ public class ModificaArticolo extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	ArticoloDAO a = new ArticoloDAO();
+	Controller c = new Controller();
+	Model m = new Model();
 
 	/**
 	 * Launch the application.
@@ -40,6 +41,10 @@ public class ModificaArticolo extends JFrame {
 			public void run() {
 				try {
 					ModificaArticolo frame = new ModificaArticolo();
+					Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+				    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+				    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+				    frame.setLocation(x, y);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,10 +60,6 @@ public class ModificaArticolo extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 450);
 		setUndecorated(true);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(Color.GRAY, 3, true));
@@ -91,7 +92,7 @@ public class ModificaArticolo extends JFrame {
 		label.setBounds(314, 3, 333, 94);
 		contentPane.add(label);
 		
-		table = new JTable(a.getArticoli());
+		table = new JTable(m.allArticoliModel());
 		table.setSurrendersFocusOnKeystroke(true);
 		table.setBackground(Color.WHITE);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -127,12 +128,12 @@ public class ModificaArticolo extends JFrame {
 					String taglia = table.getValueAt(table.getSelectedRow(), 4).toString();
 					String colore = table.getValueAt(table.getSelectedRow(), 5).toString();
 					String qta = table.getValueAt(table.getSelectedRow(), 7).toString();
-				
+					
 					float prezzo = Float.parseFloat(prz);
 					int quantita = Integer.parseInt(qta);
 
-					a.modificaArticolo(id, prezzo, taglia, colore, quantita);
-					table.setModel(a.getArticoli());
+					Articolo artedit = c.findArticolo(id);
+					c.updateArticolo(artedit);
 				}
 			}
 		});

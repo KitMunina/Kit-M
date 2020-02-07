@@ -1,3 +1,4 @@
+
 package main;
 
 import java.awt.EventQueue;
@@ -46,6 +47,7 @@ public class Homepage extends JFrame {
 			public void run() {
 				try {
 					Homepage frame = new Homepage();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,10 +64,6 @@ public class Homepage extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setBounds(100, 100, 1000, 600);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(Color.GRAY, 3, true));
@@ -92,22 +90,23 @@ public class Homepage extends JFrame {
 			}
 		});
 		loginbutton.setFont(new Font("Tw Cen MT", Font.PLAIN, 12));
-		loginbutton.setToolTipText("");
-		loginbutton.setBounds(920, 63, 30, 30);
-		loginbutton.setIcon(new ImageIcon(Homepage.class.getResource("/userlogin.png")));
+		loginbutton.setToolTipText("Accedi");
+		loginbutton.setBounds(880, 63, 30, 30);
+		loginbutton.setIcon(new ImageIcon(Homepage.class.getResource("/loginicon.png")));
 		loginbutton.setBorder(BorderFactory.createEmptyBorder());
 		loginbutton.setBackground(Color.WHITE);
 		contentPane.add(loginbutton);
 		
 		JButton cartbutton = new JButton("");
-		cartbutton.setBounds(960, 63, 30, 30);
-		cartbutton.setIcon(new ImageIcon(Homepage.class.getResource("/shoppingbagicon.png")));
+		cartbutton.setToolTipText("Carrello");
+		cartbutton.setBounds(920, 63, 30, 30);
+		cartbutton.setIcon(new ImageIcon(Homepage.class.getResource("/carticon.png")));
 		cartbutton.setBorder(BorderFactory.createEmptyBorder());
 		cartbutton.setBackground(Color.WHITE);
 		contentPane.add(cartbutton);
 		
 		JLabel lblB = new JLabel("");
-		lblB.setBounds(13, 11, 977, 46);
+		lblB.setBounds(10, 11, 980, 46);
 		lblB.setHorizontalAlignment(SwingConstants.CENTER);
 		lblB.setIcon(new ImageIcon(Homepage.class.getResource("/logo_home.png")));
 		contentPane.add(lblB);
@@ -126,7 +125,7 @@ public class Homepage extends JFrame {
 		});
 		searchField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		searchField.setText("Cerca un prodotto...");
-		searchField.setBounds(710, 68, 200, 21);
+		searchField.setBounds(670, 68, 200, 21);
 		contentPane.add(searchField);
 		searchField.setColumns(10);
 		
@@ -278,7 +277,7 @@ public class Homepage extends JFrame {
 		tshirt.setHorizontalTextPosition(SwingConstants.CENTER);
 		tshirt.setBackground(SystemColor.menu);
 		tshirt.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		tshirt.setBounds(155, 162, 180, 200);
+		tshirt.setBounds(130, 162, 180, 200);
 		contentPane.add(tshirt);
 		
 		JButton pants = new JButton("Parti inferiori");
@@ -296,7 +295,7 @@ public class Homepage extends JFrame {
 		scarpe.setHorizontalTextPosition(SwingConstants.CENTER);
 		scarpe.setBackground(SystemColor.menu);
 		scarpe.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		scarpe.setBounds(665, 162, 180, 200);
+		scarpe.setBounds(690, 162, 180, 200);
 		contentPane.add(scarpe);
 		
 		JButton giacche = new JButton("Soprabiti");
@@ -305,7 +304,7 @@ public class Homepage extends JFrame {
 		giacche.setHorizontalTextPosition(SwingConstants.CENTER);
 		giacche.setBackground(SystemColor.menu);
 		giacche.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		giacche.setBounds(155, 373, 180, 200);
+		giacche.setBounds(130, 373, 180, 200);
 		contentPane.add(giacche);
 		
 		JButton cappelli = new JButton("Copricapi");
@@ -323,7 +322,16 @@ public class Homepage extends JFrame {
 		borse.setHorizontalTextPosition(SwingConstants.CENTER);
 		borse.setBackground(SystemColor.menu);
 		borse.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		borse.setBounds(665, 373, 180, 200);
+		borse.setBounds(690, 373, 180, 200);
 		contentPane.add(borse);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon(Homepage.class.getResource("/database.png")));
+		button_1.setToolTipText("Admin control");
+		button_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 12));
+		button_1.setBorder(BorderFactory.createEmptyBorder());
+		button_1.setBackground(Color.WHITE);
+		button_1.setBounds(960, 63, 30, 30);
+		contentPane.add(button_1);
 	}
 }

@@ -38,6 +38,10 @@ public class PartiSuperiori extends JFrame {
 				try {
 					PartiSuperiori frame = new PartiSuperiori();
 					frame.setVisible(true);
+					Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+				    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+				    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+				    frame.setLocation(x, y);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -76,7 +80,7 @@ public class PartiSuperiori extends JFrame {
 		table.setRowHeight(50);
 		contentPane.add(table);
 		table.setTableHeader(null);
-		table.setModel(m.getAllUpperParts());
+		table.setModel(m.allUpperParts());
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 84, 580, 259);

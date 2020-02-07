@@ -34,7 +34,7 @@ public class AggiungiArticolo extends JFrame {
 	private JTextField nomeField;
 	private JTextField prezzoField;
 	private JTextField coloreField;
-	//ArticoloDAO a = new ArticoloDAO();
+	Controller c = new Controller();
 	
 	/**
 	 * Launch the application.
@@ -79,38 +79,38 @@ public class AggiungiArticolo extends JFrame {
 		JLabel lblNewLabel = new JLabel("ID Articolo:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblNewLabel.setBounds(10, 97, 90, 26);
+		lblNewLabel.setBounds(44, 97, 90, 26);
 		contentPane.add(lblNewLabel);
 		
 		idField = new JTextField();
 		idField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		idField.setBounds(110, 97, 155, 26);
+		idField.setBounds(144, 97, 155, 26);
 		contentPane.add(idField);
 		idField.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNome.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblNome.setBounds(47, 134, 53, 26);
+		lblNome.setBounds(81, 134, 53, 26);
 		contentPane.add(lblNome);
 		
 		nomeField = new JTextField();
 		nomeField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		nomeField.setColumns(10);
-		nomeField.setBounds(110, 136, 155, 26);
+		nomeField.setBounds(144, 136, 155, 26);
 		contentPane.add(nomeField);
 		
 		JLabel lblDescrizione = new JLabel("Descrizione:");
 		lblDescrizione.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDescrizione.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblDescrizione.setBounds(10, 171, 90, 26);
+		lblDescrizione.setBounds(44, 171, 90, 26);
 		contentPane.add(lblDescrizione);
 		
 		JComboBox<String> descrizioneCombo = new JComboBox<String>();
 		descrizioneCombo.setMaximumRowCount(5);
 		descrizioneCombo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		descrizioneCombo.setBackground(Color.WHITE);
-		descrizioneCombo.setBounds(110, 171, 155, 26);
+		descrizioneCombo.setBounds(144, 171, 155, 26);
 		contentPane.add(descrizioneCombo);
 		descrizioneCombo.addItem("Tshirt");
 		descrizioneCombo.addItem("Camicia");
@@ -124,32 +124,32 @@ public class AggiungiArticolo extends JFrame {
 		JLabel lblPrezzo = new JLabel("Prezzo:");
 		lblPrezzo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPrezzo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblPrezzo.setBounds(34, 208, 66, 26);
+		lblPrezzo.setBounds(68, 208, 66, 26);
 		contentPane.add(lblPrezzo);
 		
 		JLabel label = new JLabel("\u20AC");
 		label.setHorizontalAlignment(SwingConstants.LEFT);
 		label.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		label.setBounds(200, 208, 46, 26);
+		label.setBounds(234, 209, 46, 25);
 		contentPane.add(label);
 		
 		prezzoField = new JTextField();
 		prezzoField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		prezzoField.setColumns(10);
-		prezzoField.setBounds(110, 210, 80, 26);
+		prezzoField.setBounds(144, 210, 80, 26);
 		contentPane.add(prezzoField);
 		
 		JLabel lblTaglia = new JLabel("Taglia:");
 		lblTaglia.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTaglia.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblTaglia.setBounds(34, 245, 66, 26);
+		lblTaglia.setBounds(68, 245, 66, 26);
 		contentPane.add(lblTaglia);
 		
 		JComboBox<String> tagliaCombo = new JComboBox<String>();
 		tagliaCombo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		tagliaCombo.setMaximumRowCount(5);
 		tagliaCombo.setBackground(Color.WHITE);
-		tagliaCombo.setBounds(110, 248, 75, 25);
+		tagliaCombo.setBounds(144, 248, 75, 25);
 		contentPane.add(tagliaCombo);
 		tagliaCombo.addItem("S");
 		tagliaCombo.addItem("M");
@@ -168,39 +168,39 @@ public class AggiungiArticolo extends JFrame {
 		JLabel lblColore = new JLabel("Colore:");
 		lblColore.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblColore.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblColore.setBounds(44, 282, 56, 26);
+		lblColore.setBounds(78, 282, 56, 26);
 		contentPane.add(lblColore);
 		
 		coloreField = new JTextField();
 		coloreField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		coloreField.setColumns(10);
-		coloreField.setBounds(110, 282, 155, 26);
+		coloreField.setBounds(144, 282, 155, 26);
 		contentPane.add(coloreField);
 		
 		JLabel lblQuantit = new JLabel("Quantit\u00E1:");
 		lblQuantit.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblQuantit.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblQuantit.setBounds(194, 245, 71, 26);
+		lblQuantit.setBounds(228, 245, 71, 26);
 		contentPane.add(lblQuantit);
 		
 		JSpinner quantitaCombo = new JSpinner();
 		quantitaCombo.setBackground(Color.WHITE);
 		quantitaCombo.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		quantitaCombo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		quantitaCombo.setBounds(275, 245, 75, 26);
+		quantitaCombo.setBounds(309, 245, 75, 26);
 		contentPane.add(quantitaCombo);
 		
 		JLabel lblReparto = new JLabel("Reparto:");
 		lblReparto.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblReparto.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblReparto.setBounds(20, 319, 80, 26);
+		lblReparto.setBounds(54, 319, 80, 26);
 		contentPane.add(lblReparto);
 		
 		JComboBox<String> repartoCombo = new JComboBox<String>();
 		repartoCombo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		repartoCombo.setMaximumRowCount(5);
 		repartoCombo.setBackground(Color.WHITE);
-		repartoCombo.setBounds(110, 319, 155, 26);
+		repartoCombo.setBounds(144, 319, 155, 26);
 		contentPane.add(repartoCombo);
 		repartoCombo.addItem("Maschile");
 		repartoCombo.addItem("Femminile");
@@ -237,7 +237,18 @@ public class AggiungiArticolo extends JFrame {
 					errore.setVisible(false);
 					float prezzo = Float.parseFloat(prezzoField.getText());
 					int qta = Integer.parseInt(quantitaCombo.getValue().toString());
-					a.aggiungiArticolo(idField.getText(), nomeField.getText(), prezzo, tagliaCombo.getSelectedItem().toString(), coloreField.getText(), repartoCombo.getSelectedItem().toString(), descrizioneCombo.getSelectedItem().toString(), qta);
+					
+					Articolo artnuovo = new Articolo();
+					artnuovo.setIdarticolo(idField.getText());
+					artnuovo.setNome(nomeField.getText());
+					artnuovo.setDescrizione(descrizioneCombo.getSelectedItem().toString());
+					artnuovo.setPrezzo(prezzo);
+					artnuovo.setTaglia(tagliaCombo.getSelectedItem().toString());
+					artnuovo.setColore(coloreField.getText());
+					artnuovo.setReparto(repartoCombo.getSelectedItem().toString());
+					artnuovo.setQuantita(qta);
+					
+					c.insertArticolo(artnuovo);
 				}
 			}
 		});
