@@ -17,17 +17,20 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
 
 public class AccessoEseguito extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
+	public JLabel ciao = new JLabel();
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
 			AccessoEseguito dialog = new AccessoEseguito();
+			dialog.setLocationRelativeTo(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -42,17 +45,12 @@ public class AccessoEseguito extends JDialog {
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 450, 200);
 		setUndecorated(true);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new LineBorder(Color.GRAY, 3, true));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JLabel ciao = new JLabel();
 		ciao.setFont(new Font("Tw Cen MT", Font.PLAIN, 25));
 		ciao.setHorizontalAlignment(SwingConstants.CENTER);
 		ciao.setBounds(10, 79, 430, 70);
@@ -66,6 +64,7 @@ public class AccessoEseguito extends JDialog {
 		contentPanel.add(label);
 		
 		JButton btnOk = new JButton("OK");
+		btnOk.setBackground(SystemColor.menu);
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();

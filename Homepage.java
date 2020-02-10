@@ -29,15 +29,27 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
 import java.awt.SystemColor;
 import java.awt.event.InputMethodListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.border.MatteBorder;
 
 public class Homepage extends JFrame {
-
+	
 	private JPanel contentPane;
 	private JTextField searchField;
+	public boolean loggedc = false;
+	public boolean loggedad = false;
+	JLabel username = new JLabel("");
+	LoginCliente lg = new LoginCliente();
+	LoginAdmin la = new LoginAdmin();
+	AccessoEseguito ac = new AccessoEseguito();
+	PartiSuperiori ps = new PartiSuperiori();
+	PartiInferiori pi = new PartiInferiori();
+	Chiusura c = new Chiusura();
+	Controller ctrl = new Controller();
 	
 	/**
 	 * Launch the application.
@@ -61,7 +73,7 @@ public class Homepage extends JFrame {
 	 */
 	public Homepage() {
 		setTitle("Kit&M");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setUndecorated(true);
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
@@ -69,44 +81,62 @@ public class Homepage extends JFrame {
 		contentPane.setBorder(new LineBorder(Color.GRAY, 3, true));
 		setContentPane(contentPane);
 		
-		JButton button = new JButton("");
-		button.setBounds(960, 11, 30, 30);
-		button.addActionListener(new ActionListener() {
+		JButton closebutton = new JButton("");
+		closebutton.setBounds(960, 11, 30, 30);
+		closebutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
+				c.setVisible(true);
 			}
 		});
 		contentPane.setLayout(null);
-		button.setIcon(new ImageIcon(Homepage.class.getResource("/close.png")));
-		button.setBorder(BorderFactory.createEmptyBorder());
-		button.setBackground(Color.WHITE);
-		contentPane.add(button);
+		closebutton.setIcon(new ImageIcon(Homepage.class.getResource("/close.png")));
+		closebutton.setBorder(BorderFactory.createEmptyBorder());
+		closebutton.setBackground(Color.WHITE);
+		contentPane.add(closebutton);
 		
 		JButton loginbutton = new JButton("");
 		loginbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Login l = new Login();
-				l.setVisible(true);
+				if(!loggedc) {
+					dispose();
+					lg.setLocationRelativeTo(null);
+					lg.setVisible(true);
+				}
+				else {
+					ac.setLocationRelativeTo(null);
+					ac.ciao.setText("Hai gia' effettuato l'accesso");
+					ac.setVisible(true);
+				}
 			}
 		});
 		loginbutton.setFont(new Font("Tw Cen MT", Font.PLAIN, 12));
 		loginbutton.setToolTipText("Accedi");
-		loginbutton.setBounds(880, 63, 30, 30);
+		loginbutton.setBounds(840, 63, 30, 30);
 		loginbutton.setIcon(new ImageIcon(Homepage.class.getResource("/loginicon.png")));
 		loginbutton.setBorder(BorderFactory.createEmptyBorder());
 		loginbutton.setBackground(Color.WHITE);
 		contentPane.add(loginbutton);
 		
+		username.setHorizontalAlignment(SwingConstants.CENTER);
+		username.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
+		username.setBounds(800, 100, 108, 14);
+		contentPane.add(username);
+		
 		JButton cartbutton = new JButton("");
+		cartbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		
 		cartbutton.setToolTipText("Carrello");
-		cartbutton.setBounds(920, 63, 30, 30);
+		cartbutton.setBounds(900, 63, 30, 30);
 		cartbutton.setIcon(new ImageIcon(Homepage.class.getResource("/carticon.png")));
 		cartbutton.setBorder(BorderFactory.createEmptyBorder());
 		cartbutton.setBackground(Color.WHITE);
 		contentPane.add(cartbutton);
 		
 		JLabel lblB = new JLabel("");
-		lblB.setBounds(10, 11, 980, 46);
+		lblB.setBounds(10, 5, 980, 46);
 		lblB.setHorizontalAlignment(SwingConstants.CENTER);
 		lblB.setIcon(new ImageIcon(Homepage.class.getResource("/logo_home.png")));
 		contentPane.add(lblB);
@@ -120,14 +150,27 @@ public class Homepage extends JFrame {
 			}
 			
 			public void focusLost(FocusEvent e) {
-		        searchField.setText("Cerca un prodotto...");
+		        searchField.setText("Ricerca");
 		    }
 		});
 		searchField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		searchField.setText("Cerca un prodotto...");
-		searchField.setBounds(670, 68, 200, 21);
+		searchField.setText("Ricerca");
+		searchField.setBounds(400, 66, 200, 21);
 		contentPane.add(searchField);
 		searchField.setColumns(10);
+		
+		JButton searchbtn = new JButton("");
+		searchbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				List<Articolo> articolitrovati = new ArrayList<Articolo>();
+				
+			}
+		});
+		searchbtn.setIcon(new ImageIcon(Homepage.class.getResource("/searchbtn.png")));
+		searchbtn.setBounds(610, 66, 30, 21);
+		searchbtn.setBorder(BorderFactory.createEmptyBorder());
+		searchbtn.setBackground(Color.WHITE);
+		contentPane.add(searchbtn);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(13, 68, 255, 21);
@@ -262,13 +305,13 @@ public class Homepage extends JFrame {
 		lblNewLabel.setForeground(new Color(30, 144, 255));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tw Cen MT", Font.PLAIN, 25));
-		lblNewLabel.setBounds(155, 100, 690, 42);
+		lblNewLabel.setBounds(10, 100, 980, 42);
 		contentPane.add(lblNewLabel);
 		
 		JButton tshirt = new JButton("Parti superiori");
 		tshirt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PartiSuperiori ps = new PartiSuperiori();
+				ps.setLocationRelativeTo(null);
 				ps.setVisible(true);
 			}
 		});
@@ -281,6 +324,12 @@ public class Homepage extends JFrame {
 		contentPane.add(tshirt);
 		
 		JButton pants = new JButton("Parti inferiori");
+		pants.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pi.setLocationRelativeTo(null);
+				pi.setVisible(true);
+			}
+		});
 		pants.setIcon(new ImageIcon(Homepage.class.getResource("/pantaloni.png")));
 		pants.setVerticalTextPosition(SwingConstants.BOTTOM);
 		pants.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -326,8 +375,21 @@ public class Homepage extends JFrame {
 		contentPane.add(borse);
 		
 		JButton button_1 = new JButton("");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!loggedad) {
+					dispose();
+					la.setLocationRelativeTo(null);
+					la.setVisible(true);
+				}
+				else {
+					ac.setLocationRelativeTo(null);
+					ac.setVisible(true);
+				}
+			}
+		});
 		button_1.setIcon(new ImageIcon(Homepage.class.getResource("/database.png")));
-		button_1.setToolTipText("Admin control");
+		button_1.setToolTipText("Pannello di controllo amministratore");
 		button_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 12));
 		button_1.setBorder(BorderFactory.createEmptyBorder());
 		button_1.setBackground(Color.WHITE);

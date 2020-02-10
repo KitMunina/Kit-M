@@ -39,7 +39,7 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllArticoli() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo join magazzino on articolo.idmagazzino=magazino.idmagazzino";
+			String query ="select a.idarticolo,a.nome,a.descrizione,a.prezzo,a.taglia,a.colore,a.reparto,a.quantita from articolo a join magazzino m on (a.idmagazzino=m.idmagazzino) order by a.idarticolo";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 			
@@ -59,7 +59,6 @@ public class ArticoloDaoImpl implements ArticoloDao {
 			}
 			
 			return articoli;
-			
 		}catch (Exception e) {
 			System.err.println("Errore SQL");
 			return null;
@@ -152,7 +151,6 @@ public class ArticoloDaoImpl implements ArticoloDao {
 			}
 		
 			return articoli;
-		
 		}catch (Exception e) {
 			System.err.println("Errore SQL");
 			return null;
@@ -160,10 +158,41 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	}
 	
 	@Override
-	public void insertArticolo(Articolo artnuovo) {
+	public List<Articolo> getAllLowerParts() {
+		try {
+			Statement s = connection.createStatement();
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Gonna','Pantalone')";
+			ResultSet rs = s.executeQuery(query);
+			List<Articolo> articoli = new ArrayList<Articolo>();
+		
+			while (rs.next()) {
+				Articolo a = new Articolo();
+			
+				a.setIdarticolo(rs.getString(1));
+				a.setNome(rs.getString(2));
+				a.setDescrizione(rs.getString(3));
+				a.setPrezzo(rs.getFloat(4));
+				a.setTaglia(rs.getString(5));
+				a.setColore(rs.getString(6));
+				a.setReparto(rs.getString(7));
+				a.setQuantita(rs.getInt(8));
+			
+				articoli.add(a);
+			}
+		
+			return articoli;
+		}catch (Exception e) {
+			System.err.println("Errore SQL");
+			return null;
+		}
+	}
+	
+	@Override
+	public boolean insertArticolo(Articolo artnuovo) {
 		try {
 			String query = "insert into articolo values (?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement s = connection.prepareStatement(query);
+			
 			s.clearParameters();
 			s.setString(1, artnuovo.getIdarticolo());
 			s.setString(2, artnuovo.getNome());
@@ -178,17 +207,17 @@ public class ArticoloDaoImpl implements ArticoloDao {
 			
 			s.executeUpdate();
 			
-			OKpopup dialog = new OKpopup();
-			dialog.setVisible(true);
+			return true;
 		}
 		catch(SQLException e) {
 			System.err.println("Errore SQL");
 			e.printStackTrace();
+			return false;
 		}
 	}
 
 	@Override
-	public void updateArticolo(Articolo artedit) {
+	public boolean updateArticolo(Articolo artedit) {
 		try {
 			String query ="update articolo set prezzo=?, taglia=?, colore=?, quantita=? where idarticolo=?";
 			PreparedStatement ps = connection.prepareStatement(query);
@@ -201,8 +230,29 @@ public class ArticoloDaoImpl implements ArticoloDao {
 			ps.setString(5, artedit.getIdarticolo());
 			
 			ps.executeUpdate();
+			
+			return true;
 		}catch (Exception e) {
 			System.err.println("Errore SQL");
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean deleteArticolo(Articolo artremove) {
+		try {
+			String query ="delete from articolo where idarticolo=?";
+			PreparedStatement ps = connection.prepareStatement(query);
+		
+			ps.clearParameters();
+			ps.setString(1, artremove.getIdarticolo());
+			
+			ps.executeUpdate();
+			
+			return true;
+		}catch (Exception e) {
+			System.err.println("Errore SQL");
+			return false;
 		}
 	}
 }

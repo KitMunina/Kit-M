@@ -44,6 +44,7 @@ public class OKpopup extends JDialog {
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 450, 200);
 		setUndecorated(true);
+		getToolkit().beep();
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
 	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
@@ -72,8 +73,6 @@ public class OKpopup extends JDialog {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
-					AggiungiArticolo a = new AggiungiArticolo();
-					a.dispose();
 				}
 			});
 			btnNewButton.setBackground(SystemColor.menu);

@@ -32,7 +32,6 @@ public class AggiungiArticolo extends JFrame {
 	private JPanel contentPane;
 	private JTextField idField;
 	private JTextField nomeField;
-	private JTextField prezzoField;
 	private JTextField coloreField;
 	Controller c = new Controller();
 	
@@ -127,17 +126,31 @@ public class AggiungiArticolo extends JFrame {
 		lblPrezzo.setBounds(68, 208, 66, 26);
 		contentPane.add(lblPrezzo);
 		
-		JLabel label = new JLabel("\u20AC");
-		label.setHorizontalAlignment(SwingConstants.LEFT);
+		JSpinner intSpin = new JSpinner();
+		intSpin.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
+		intSpin.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		intSpin.setBackground(Color.WHITE);
+		intSpin.setBounds(144, 208, 45, 26);
+		contentPane.add(intSpin);
+		
+		JLabel label = new JLabel(",");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		label.setBounds(234, 209, 46, 25);
+		label.setBounds(187, 209, 21, 25);
 		contentPane.add(label);
 		
-		prezzoField = new JTextField();
-		prezzoField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		prezzoField.setColumns(10);
-		prezzoField.setBounds(144, 210, 80, 26);
-		contentPane.add(prezzoField);
+		JSpinner decimalSpin = new JSpinner();
+		decimalSpin.setModel(new SpinnerNumberModel(0, 0, 99, 1));
+		decimalSpin.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		decimalSpin.setBackground(Color.WHITE);
+		decimalSpin.setBounds(208, 208, 45, 26);
+		contentPane.add(decimalSpin);
+		
+		JLabel label_1 = new JLabel("\u20AC");
+		label_1.setHorizontalAlignment(SwingConstants.LEFT);
+		label_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		label_1.setBounds(263, 209, 9, 25);
+		contentPane.add(label_1);
 		
 		JLabel lblTaglia = new JLabel("Taglia:");
 		lblTaglia.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -183,12 +196,12 @@ public class AggiungiArticolo extends JFrame {
 		lblQuantit.setBounds(228, 245, 71, 26);
 		contentPane.add(lblQuantit);
 		
-		JSpinner quantitaCombo = new JSpinner();
-		quantitaCombo.setBackground(Color.WHITE);
-		quantitaCombo.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-		quantitaCombo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		quantitaCombo.setBounds(309, 245, 75, 26);
-		contentPane.add(quantitaCombo);
+		JSpinner quantitaSpin = new JSpinner();
+		quantitaSpin.setBackground(Color.WHITE);
+		quantitaSpin.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		quantitaSpin.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		quantitaSpin.setBounds(309, 245, 45, 26);
+		contentPane.add(quantitaSpin);
 		
 		JLabel lblReparto = new JLabel("Reparto:");
 		lblReparto.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -224,37 +237,6 @@ public class AggiungiArticolo extends JFrame {
 		backbutton.setBounds(10, 406, 35, 35);
 		contentPane.add(backbutton);
 		
-		JButton btnAggiungi = new JButton("Aggiungi");
-		btnAggiungi.setIcon(new ImageIcon(AggiungiArticolo.class.getResource("/addbutton_small.png")));
-		btnAggiungi.setBackground(SystemColor.menu);
-		btnAggiungi.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		btnAggiungi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if((idField.getText().isEmpty()) || (nomeField.getText().isEmpty()) || (prezzoField.getText().isEmpty()) || (coloreField.getText().isEmpty())) {
-					errore.setText("*Tutti i campi devono essere valorizzati!");;
-				}
-				else {
-					errore.setVisible(false);
-					float prezzo = Float.parseFloat(prezzoField.getText());
-					int qta = Integer.parseInt(quantitaCombo.getValue().toString());
-					
-					Articolo artnuovo = new Articolo();
-					artnuovo.setIdarticolo(idField.getText());
-					artnuovo.setNome(nomeField.getText());
-					artnuovo.setDescrizione(descrizioneCombo.getSelectedItem().toString());
-					artnuovo.setPrezzo(prezzo);
-					artnuovo.setTaglia(tagliaCombo.getSelectedItem().toString());
-					artnuovo.setColore(coloreField.getText());
-					artnuovo.setReparto(repartoCombo.getSelectedItem().toString());
-					artnuovo.setQuantita(qta);
-					
-					c.insertArticolo(artnuovo);
-				}
-			}
-		});
-		btnAggiungi.setBounds(490, 404, 150, 35);
-		contentPane.add(btnAggiungi);
-		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(AggiungiArticolo.class.getResource("/forklift.jpg")));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -267,5 +249,42 @@ public class AggiungiArticolo extends JFrame {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(314, 3, 333, 94);
 		contentPane.add(lblNewLabel_2);
+		
+		JButton btnAggiungi = new JButton("Aggiungi");
+		btnAggiungi.setIcon(new ImageIcon(AggiungiArticolo.class.getResource("/addbutton_small.png")));
+		btnAggiungi.setBackground(SystemColor.menu);
+		btnAggiungi.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		btnAggiungi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				float prezzo = Float.parseFloat(intSpin.getValue().toString().concat(".").concat(decimalSpin.getValue().toString()));
+				int qta = Integer.parseInt(quantitaSpin.getValue().toString());
+				
+				if((idField.getText().isEmpty()) || (nomeField.getText().isEmpty()) || (coloreField.getText().isEmpty()) || (prezzo == 0) || (qta == 0)) {
+					errore.setText("*Tutti i campi devono essere valorizzati correttamente!");;
+				}
+				else {
+					errore.setVisible(false);
+					
+					Articolo artnuovo = new Articolo();
+					artnuovo.setIdarticolo(idField.getText());
+					artnuovo.setNome(nomeField.getText());
+					artnuovo.setDescrizione(descrizioneCombo.getSelectedItem().toString());
+					artnuovo.setPrezzo(prezzo);
+					artnuovo.setTaglia(tagliaCombo.getSelectedItem().toString());
+					artnuovo.setColore(coloreField.getText());
+					artnuovo.setReparto(repartoCombo.getSelectedItem().toString());
+					artnuovo.setQuantita(qta);
+					
+					if(c.insertArticolo(artnuovo)) {
+						new OKpopup().setVisible(true);
+					}
+					else {
+						new Errore().setVisible(true);
+					}
+				}
+			}
+		});
+		btnAggiungi.setBounds(490, 404, 150, 35);
+		contentPane.add(btnAggiungi);
 	}
 }

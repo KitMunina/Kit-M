@@ -20,13 +20,18 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
+import java.awt.SystemColor;
 
 public class PartiSuperiori extends JFrame {
 
 	private JPanel contentPane;
 	Model m = new Model();
+	Controller c = new Controller();
 	private JTable table;
 
 	/**
@@ -38,10 +43,6 @@ public class PartiSuperiori extends JFrame {
 				try {
 					PartiSuperiori frame = new PartiSuperiori();
 					frame.setVisible(true);
-					Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-				    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
-				    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
-				    frame.setLocation(x, y);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,10 +56,6 @@ public class PartiSuperiori extends JFrame {
 	public PartiSuperiori() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -72,18 +69,23 @@ public class PartiSuperiori extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		table = new JTable();
+		table.setShowVerticalLines(false);
+		table.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) table.getDefaultRenderer(String.class);
 		stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-		table.setShowVerticalLines(false);
 		table.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		table.setBounds(10, 65, 580, 233);
 		table.setRowHeight(50);
-		contentPane.add(table);
 		table.setTableHeader(null);
+		table.setSelectionBackground(new Color(100, 149, 237));
 		table.setModel(m.allUpperParts());
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+		contentPane.add(table);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 84, 580, 259);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane);
 		
 		JButton button = new JButton("");
@@ -99,45 +101,67 @@ public class PartiSuperiori extends JFrame {
 		contentPane.add(button);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nome");
+		lblNewLabel_1.setForeground(new Color(100, 149, 237));
 		lblNewLabel_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(10, 52, 84, 21);
+		lblNewLabel_1.setBounds(10, 52, 200, 21);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblDescr = new JLabel("Descr.");
-		lblDescr.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		lblDescr.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDescr.setBounds(93, 52, 84, 21);
-		contentPane.add(lblDescr);
-		
 		JLabel lblPrezzo = new JLabel("Prezzo");
+		lblPrezzo.setForeground(new Color(100, 149, 237));
 		lblPrezzo.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		lblPrezzo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPrezzo.setBounds(175, 52, 84, 21);
+		lblPrezzo.setBounds(209, 52, 75, 21);
 		contentPane.add(lblPrezzo);
 		
 		JLabel lblTaglia = new JLabel("Taglia");
+		lblTaglia.setForeground(new Color(100, 149, 237));
 		lblTaglia.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		lblTaglia.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTaglia.setBounds(258, 52, 84, 21);
+		lblTaglia.setBounds(285, 52, 75, 21);
 		contentPane.add(lblTaglia);
 		
 		JLabel lblColore = new JLabel("Colore");
+		lblColore.setForeground(new Color(100, 149, 237));
 		lblColore.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		lblColore.setHorizontalAlignment(SwingConstants.CENTER);
-		lblColore.setBounds(340, 52, 84, 21);
+		lblColore.setBounds(362, 52, 75, 21);
 		contentPane.add(lblColore);
 		
 		JLabel lblReparto = new JLabel("Reparto");
+		lblReparto.setForeground(new Color(100, 149, 237));
 		lblReparto.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		lblReparto.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReparto.setBounds(422, 52, 84, 21);
+		lblReparto.setBounds(439, 52, 75, 21);
 		contentPane.add(lblReparto);
 		
 		JLabel lblQt = new JLabel("Q.t\u00E1");
+		lblQt.setForeground(new Color(100, 149, 237));
 		lblQt.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		lblQt.setHorizontalAlignment(SwingConstants.CENTER);
-		lblQt.setBounds(506, 52, 84, 21);
+		lblQt.setBounds(515, 52, 75, 21);
 		contentPane.add(lblQt);
+		
+		JButton addtocart = new JButton("Aggiungi");
+		addtocart.setIcon(new ImageIcon(PartiSuperiori.class.getResource("/cart_large.png")));
+		addtocart.setEnabled(false);
+		addtocart.setForeground(Color.BLACK);
+		addtocart.setBorder(new LineBorder(Color.GRAY, 1, true));
+		addtocart.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		addtocart.setBackground(SystemColor.menu);
+		addtocart.setBounds(430, 354, 160, 35);
+		contentPane.add(addtocart);
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(table.getSelectionModel().isSelectionEmpty()) {
+					addtocart.setEnabled(false);
+				}
+				else {
+					addtocart.setEnabled(true);
+				}
+			};
+		});
 	}
 }

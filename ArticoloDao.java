@@ -7,6 +7,8 @@ public interface ArticoloDao {
 	public List<Articolo> getAllMale();
 	public List<Articolo> getAllFemale();
 	public List<Articolo> getAllUpperParts();
-	public void insertArticolo(Articolo artnuovo);
-	public void updateArticolo(Articolo artedit);
+	public List<Articolo> getAllLowerParts();
+	public boolean insertArticolo(Articolo artnuovo);
+	public boolean updateArticolo(Articolo artedit);
+	public boolean deleteArticolo(Articolo artremove);
 }

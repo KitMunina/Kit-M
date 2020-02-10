@@ -6,7 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -41,10 +41,6 @@ public class ModificaArticolo extends JFrame {
 			public void run() {
 				try {
 					ModificaArticolo frame = new ModificaArticolo();
-					Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-				    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
-				    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
-				    frame.setLocation(x, y);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,8 +53,12 @@ public class ModificaArticolo extends JFrame {
 	 * Create the frame.
 	 */
 	public ModificaArticolo() {
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
+	    setLocation(x, y);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 450);
+		setBounds(100, 100, 700, 450);
 		setUndecorated(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -89,23 +89,29 @@ public class ModificaArticolo extends JFrame {
 		label.setIcon(new ImageIcon(ModificaArticolo.class.getResource("/corner .png")));
 		label.setVerticalAlignment(SwingConstants.BOTTOM);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(314, 3, 333, 94);
+		label.setBounds(364, 0, 333, 94);
 		contentPane.add(label);
 		
-		table = new JTable(m.allArticoliModel());
+		table = new JTable();
+		DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) table.getDefaultRenderer(String.class);
+		stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		table.setSurrendersFocusOnKeystroke(true);
 		table.setBackground(Color.WHITE);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getTableHeader().setFont(new Font("Ts Cent MT", Font.PLAIN, 18));
+		table.getTableHeader().setFont(new Font("TW Cent MT", Font.PLAIN, 18));
 		table.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
-		table.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
+		table.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		table.setBounds(10, 108, 630, 285);
 		table.setRowHeight(50);
 		table.setSelectionBackground(new Color(100, 149, 237));
+		table.setTableHeader(null);
+		table.setModel(m.allArticoliModel());
 		contentPane.add(table);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 108, 630, 285);
+		scrollPane.setBounds(10, 128, 680, 265);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane);
 		
 		JLabel lblNewLabel = new JLabel("* Si possono modificare solo le colonne \"Prezzo\",\"Taglia\",\"Colore\",\"Quantit\u00E1\".");
@@ -115,33 +121,14 @@ public class ModificaArticolo extends JFrame {
 		lblNewLabel.setBounds(55, 404, 425, 16);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnAggiorna = new JButton("Aggiorna");
-		btnAggiorna.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(table.getSelectionModel().isSelectionEmpty()) {
-					NOUPDATEpopup dialog = new NOUPDATEpopup();
-					dialog.setVisible(true);
-				}
-				else {
-					String id = table.getValueAt(table.getSelectedRow(), 0).toString();
-					String prz = table.getValueAt(table.getSelectedRow(), 3).toString();
-					String taglia = table.getValueAt(table.getSelectedRow(), 4).toString();
-					String colore = table.getValueAt(table.getSelectedRow(), 5).toString();
-					String qta = table.getValueAt(table.getSelectedRow(), 7).toString();
-					
-					float prezzo = Float.parseFloat(prz);
-					int quantita = Integer.parseInt(qta);
-
-					Articolo artedit = c.findArticolo(id);
-					c.updateArticolo(artedit);
-				}
-			}
-		});
-		btnAggiorna.setIcon(new ImageIcon(ModificaArticolo.class.getResource("/updatebutton_small.png")));
-		btnAggiorna.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		btnAggiorna.setBackground(SystemColor.menu);
-		btnAggiorna.setBounds(490, 404, 150, 35);
-		contentPane.add(btnAggiorna);
+		JButton updatebtn = new JButton("Aggiorna");
+		updatebtn.setEnabled(false);
+		updatebtn.setIcon(new ImageIcon(ModificaArticolo.class.getResource("/updatebutton_small.png")));
+		updatebtn.setBorder(new LineBorder(Color.GRAY, 1, true));
+		updatebtn.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		updatebtn.setBackground(SystemColor.menu);
+		updatebtn.setBounds(540, 404, 150, 35);
+		contentPane.add(updatebtn);
 		
 		JLabel lblInserireIlNuovo = new JLabel("Per modificare un elemento, fare doppio click sulla cella desiderata e inserire il nuovo valore. *");
 		lblInserireIlNuovo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -163,5 +150,93 @@ public class ModificaArticolo extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 12));
 		lblNewLabel_1.setBounds(55, 425, 425, 14);
 		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setForeground(new Color(65, 105, 225));
+		lblId.setHorizontalAlignment(SwingConstants.CENTER);
+		lblId.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		lblId.setBounds(10, 108, 70, 21);
+		contentPane.add(lblId);
+		
+		JLabel label_1 = new JLabel("Nome");
+		label_1.setForeground(new Color(65, 105, 225));
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_1.setBounds(80, 108, 256, 21);
+		contentPane.add(label_1);
+		
+		JLabel label_3 = new JLabel("Prezzo");
+		label_3.setForeground(new Color(65, 105, 225));
+		label_3.setHorizontalAlignment(SwingConstants.CENTER);
+		label_3.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_3.setBounds(337, 108, 71, 21);
+		contentPane.add(label_3);
+		
+		JLabel label_4 = new JLabel("Taglia");
+		label_4.setForeground(new Color(65, 105, 225));
+		label_4.setHorizontalAlignment(SwingConstants.CENTER);
+		label_4.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_4.setBounds(410, 108, 70, 21);
+		contentPane.add(label_4);
+		
+		JLabel label_5 = new JLabel("Colore");
+		label_5.setForeground(new Color(65, 105, 225));
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_5.setBounds(479, 108, 70, 21);
+		contentPane.add(label_5);
+		
+		JLabel label_6 = new JLabel("Reparto");
+		label_6.setForeground(new Color(65, 105, 225));
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_6.setBounds(551, 108, 70, 21);
+		contentPane.add(label_6);
+		
+		JLabel label_7 = new JLabel("Q.t\u00E1");
+		label_7.setForeground(new Color(65, 105, 225));
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_7.setBounds(619, 108, 71, 21);
+		contentPane.add(label_7);
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(table.getSelectionModel().isSelectionEmpty()) {
+					updatebtn.setEnabled(false);
+				}
+				else {
+					updatebtn.setEnabled(true);
+					updatebtn.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+							String prz = table.getValueAt(table.getSelectedRow(), 3).toString();
+							String taglia = table.getValueAt(table.getSelectedRow(), 4).toString();
+							String colore = table.getValueAt(table.getSelectedRow(), 5).toString();
+							String qta = table.getValueAt(table.getSelectedRow(), 7).toString();
+							
+							float prezzo = Float.parseFloat(prz);
+							int quantita = Integer.parseInt(qta);
+
+							Articolo artedit = c.findArticolo(id);
+							artedit.setPrezzo(prezzo);
+							artedit.setTaglia(taglia);
+							artedit.setColore(colore);
+							artedit.setQuantita(quantita);
+							
+							if(c.updateArticolo(artedit)) {
+								new OKpopup().setVisible(true);
+								table.setModel(m.allArticoliModel());
+								updatebtn.setEnabled(false);
+							}
+							else {
+								new Errore().setVisible(true);
+							}
+						}
+					});
+				}
+			}
+		});
 	}
 }

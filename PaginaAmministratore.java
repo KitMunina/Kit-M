@@ -32,6 +32,7 @@ import javax.swing.border.MatteBorder;
 public class PaginaAmministratore extends JFrame {
 
 	private JPanel contentPane;
+	Chiusura c = new Chiusura();
 
 	/**
 	 * Launch the application.
@@ -106,7 +107,6 @@ public class PaginaAmministratore extends JFrame {
 		JButton closebutton = new JButton("");
 		closebutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Chiusura c = new Chiusura();
 				c.setVisible(true);
 			}
 		});
@@ -119,8 +119,7 @@ public class PaginaAmministratore extends JFrame {
 		JButton btnModificaArticolo = new JButton("Modifica articolo");
 		btnModificaArticolo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ModificaArticolo m = new ModificaArticolo();
-				m.setVisible(true);
+				new ModificaArticolo().setVisible(true);
 			}
 		});
 		btnModificaArticolo.setIcon(new ImageIcon(PaginaAmministratore.class.getResource("/updatebutton.png")));
@@ -134,8 +133,7 @@ public class PaginaAmministratore extends JFrame {
 		JButton btnEliminaArticolo = new JButton("Elimina articolo");
 		btnEliminaArticolo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RimuoviArticolo ra = new RimuoviArticolo();
-				ra.setVisible(true);
+				new RimuoviArticolo().setVisible(true);
 			}
 		});
 		btnEliminaArticolo.setIcon(new ImageIcon(PaginaAmministratore.class.getResource("/removebutton.png")));

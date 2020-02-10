@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -24,12 +26,16 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RimuoviArticolo extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	ArticoloDAO a = new ArticoloDAO();
+	Controller c = new Controller();
+	Model m = new Model();
 
 	/**
 	 * Launch the application.
@@ -52,7 +58,7 @@ public class RimuoviArticolo extends JFrame {
 	 */
 	public RimuoviArticolo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 450);
+		setBounds(100, 100, 700, 450);
 		setUndecorated(true);
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
@@ -75,24 +81,8 @@ public class RimuoviArticolo extends JFrame {
 		label.setIcon(new ImageIcon(RimuoviArticolo.class.getResource("/corner .png")));
 		label.setVerticalAlignment(SwingConstants.BOTTOM);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(314, 3, 333, 94);
+		label.setBounds(364, 0, 333, 94);
 		contentPane.add(label);
-		
-		table = new JTable(a.getArticoli());
-		table.setBackground(Color.WHITE);
-		table.setSurrendersFocusOnKeystroke(true);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.getTableHeader().setFont(new Font("Ts Cent MT", Font.PLAIN, 18));
-		table.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
-		table.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
-		table.setBounds(10, 108, 630, 285);
-		table.setRowHeight(50);
-		table.setSelectionBackground(new Color(100, 149, 237));
-		contentPane.add(table);
-		
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 108, 630, 285);
-		contentPane.add(scrollPane);
 		
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
@@ -106,24 +96,117 @@ public class RimuoviArticolo extends JFrame {
 		button.setBounds(10, 404, 35, 35);
 		contentPane.add(button);
 		
+		table = new JTable();
+		table.setShowVerticalLines(false);
+		DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) table.getDefaultRenderer(String.class);
+		stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		table.setBackground(Color.WHITE);
+		table.setSurrendersFocusOnKeystroke(true);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.getTableHeader().setFont(new Font("TW Cent MT", Font.PLAIN, 18));
+		table.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
+		table.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		table.setBounds(10, 108, 630, 285);
+		table.setRowHeight(50);
+		table.setSelectionBackground(new Color(100, 149, 237));
+		table.setTableHeader(null);
+		table.setModel(m.allArticoliModel());
+		contentPane.add(table);
+		
+		JLabel lblPerEliminareUn = new JLabel("Per eliminare un articolo, seleziona una riga e clicca sul tasto rimuovi");
+		lblPerEliminareUn.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPerEliminareUn.setForeground(Color.BLACK);
+		lblPerEliminareUn.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		lblPerEliminareUn.setBounds(10, 49, 528, 25);
+		contentPane.add(lblPerEliminareUn);
+		
+		JLabel label_1 = new JLabel("ID");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setForeground(new Color(100, 149, 237));
+		label_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_1.setBounds(10, 85, 97, 21);
+		contentPane.add(label_1);
+		
+		JLabel label_2 = new JLabel("Nome");
+		label_2.setForeground(new Color(100, 149, 237));
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_2.setBounds(105, 85, 97, 21);
+		contentPane.add(label_2);
+		
+		JLabel label_4 = new JLabel("Prezzo");
+		label_4.setForeground(new Color(100, 149, 237));
+		label_4.setHorizontalAlignment(SwingConstants.CENTER);
+		label_4.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_4.setBounds(203, 85, 97, 21);
+		contentPane.add(label_4);
+		
+		JLabel label_5 = new JLabel("Taglia");
+		label_5.setForeground(new Color(100, 149, 237));
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_5.setBounds(301, 85, 97, 21);
+		contentPane.add(label_5);
+		
+		JLabel label_6 = new JLabel("Colore");
+		label_6.setForeground(new Color(100, 149, 237));
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_6.setBounds(397, 85, 97, 21);
+		contentPane.add(label_6);
+		
+		JLabel label_7 = new JLabel("Reparto");
+		label_7.setForeground(new Color(100, 149, 237));
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_7.setBounds(494, 85, 97, 21);
+		contentPane.add(label_7);
+		
+		JLabel label_8 = new JLabel("Q.t\u00E1");
+		label_8.setForeground(new Color(100, 149, 237));
+		label_8.setHorizontalAlignment(SwingConstants.CENTER);
+		label_8.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_8.setBounds(593, 85, 97, 21);
+		contentPane.add(label_8);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(10, 117, 680, 276);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.getViewport().setBackground(Color.WHITE);
+		contentPane.add(scrollPane);
+		
 		JButton rimuovibutton = new JButton("Rimuovi");
+		rimuovibutton.setEnabled(false);
+		rimuovibutton.setBorder(new LineBorder(Color.GRAY, 1, true));
 		rimuovibutton.setIcon(new ImageIcon(RimuoviArticolo.class.getResource("/removebutton_small.png")));
 		rimuovibutton.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		rimuovibutton.setBackground(SystemColor.menu);
-		rimuovibutton.setBounds(490, 404, 150, 35);
+		rimuovibutton.setBounds(540, 404, 150, 35);
 		contentPane.add(rimuovibutton);
-		rimuovibutton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
 				if(table.getSelectionModel().isSelectionEmpty()) {
-					NOUPDATEpopup dialog = new NOUPDATEpopup();
-					dialog.setVisible(true);
+					rimuovibutton.setEnabled(false);
 				}
 				else {
-					setEnabled(true);
-					String id = table.getValueAt(table.getSelectedRow(), 0).toString();
-
-					a.rimuoviArticolo(id);
-					table.setModel(a.getArticoli());
+					rimuovibutton.setEnabled(true);
+					rimuovibutton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+							
+							Articolo artremove = c.findArticolo(id);
+							if(c.deleteArticolo(artremove)) {
+								new OKpopup().setVisible(true);
+								table.setModel(m.allArticoliModel());
+								rimuovibutton.setEnabled(false);
+							}
+							else {
+								new Errore().setVisible(true);
+							}
+						}
+					});
 				}
 			}
 		});
