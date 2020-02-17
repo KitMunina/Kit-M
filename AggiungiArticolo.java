@@ -58,10 +58,6 @@ public class AggiungiArticolo extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 450);
 		setUndecorated(true);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(Color.GRAY, 3, true));
@@ -112,13 +108,18 @@ public class AggiungiArticolo extends JFrame {
 		descrizioneCombo.setBounds(144, 171, 155, 26);
 		contentPane.add(descrizioneCombo);
 		descrizioneCombo.addItem("Tshirt");
+		descrizioneCombo.addItem("Felpa");
 		descrizioneCombo.addItem("Camicia");
 		descrizioneCombo.addItem("Gonna");
 		descrizioneCombo.addItem("Pantalone");
+		descrizioneCombo.addItem("Giubbino");
 		descrizioneCombo.addItem("Cappotto");
 		descrizioneCombo.addItem("Intimo");
 		descrizioneCombo.addItem("Scarpe");
 		descrizioneCombo.addItem("Calzini");
+		descrizioneCombo.addItem("Cappello");
+		descrizioneCombo.addItem("Borsa");
+		descrizioneCombo.addItem("Orologio");
 		
 		JLabel lblPrezzo = new JLabel("Prezzo:");
 		lblPrezzo.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -168,6 +169,7 @@ public class AggiungiArticolo extends JFrame {
 		tagliaCombo.addItem("M");
 		tagliaCombo.addItem("L");
 		tagliaCombo.addItem("XL");
+		tagliaCombo.addItem("Unica");
 		tagliaCombo.addItem("36");
 		tagliaCombo.addItem("37");
 		tagliaCombo.addItem("38");
@@ -276,15 +278,31 @@ public class AggiungiArticolo extends JFrame {
 					artnuovo.setQuantita(qta);
 					
 					if(c.insertArticolo(artnuovo)) {
-						new OKpopup().setVisible(true);
+						OKpopup ok = new OKpopup();
+						ok.setLocationRelativeTo(null);
+						ok.setVisible(true);
 					}
 					else {
-						new Errore().setVisible(true);
+						Errore e = new Errore();
+						e.setLocationRelativeTo(null);
+						e.setVisible(true);
 					}
 				}
 			}
 		});
 		btnAggiungi.setBounds(490, 404, 150, 35);
 		contentPane.add(btnAggiungi);
+		
+		descrizioneCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(descrizioneCombo.getSelectedItem().equals("Gonna")) {
+					repartoCombo.setSelectedItem("Femminile");
+				}
+				
+				if(descrizioneCombo.getSelectedItem().equals("Scarpe")) {
+					tagliaCombo.setSelectedItem("36");
+				}
+			}
+		});
 	}
 }

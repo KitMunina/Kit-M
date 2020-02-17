@@ -100,7 +100,7 @@ public class PartiSuperiori extends JFrame {
 		button.setBounds(10, 354, 35, 35);
 		contentPane.add(button);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nome");
+		JLabel lblNewLabel_1 = new JLabel("Articolo");
 		lblNewLabel_1.setForeground(new Color(100, 149, 237));
 		lblNewLabel_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);

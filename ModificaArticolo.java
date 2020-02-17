@@ -25,6 +25,7 @@ import java.awt.SystemColor;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.border.MatteBorder;
 
 public class ModificaArticolo extends JFrame {
 
@@ -53,10 +54,6 @@ public class ModificaArticolo extends JFrame {
 	 * Create the frame.
 	 */
 	public ModificaArticolo() {
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		setUndecorated(true);
@@ -89,17 +86,18 @@ public class ModificaArticolo extends JFrame {
 		label.setIcon(new ImageIcon(ModificaArticolo.class.getResource("/corner .png")));
 		label.setVerticalAlignment(SwingConstants.BOTTOM);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(364, 0, 333, 94);
+		label.setBounds(364, 3, 333, 94);
 		contentPane.add(label);
 		
 		table = new JTable();
+		table.setShowVerticalLines(false);
 		DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) table.getDefaultRenderer(String.class);
 		stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		table.setSurrendersFocusOnKeystroke(true);
 		table.setBackground(Color.WHITE);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setFont(new Font("TW Cent MT", Font.PLAIN, 18));
-		table.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
+		table.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		table.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		table.setBounds(10, 108, 630, 285);
 		table.setRowHeight(50);
@@ -109,7 +107,7 @@ public class ModificaArticolo extends JFrame {
 		contentPane.add(table);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 128, 680, 265);
+		scrollPane.setBounds(10, 140, 680, 253);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane);
@@ -152,52 +150,52 @@ public class ModificaArticolo extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblId = new JLabel("ID");
-		lblId.setForeground(new Color(65, 105, 225));
+		lblId.setForeground(new Color(100, 149, 237));
 		lblId.setHorizontalAlignment(SwingConstants.CENTER);
 		lblId.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		lblId.setBounds(10, 108, 70, 21);
+		lblId.setBounds(10, 108, 96, 21);
 		contentPane.add(lblId);
 		
-		JLabel label_1 = new JLabel("Nome");
-		label_1.setForeground(new Color(65, 105, 225));
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_1.setBounds(80, 108, 256, 21);
-		contentPane.add(label_1);
+		JLabel lblArticolo = new JLabel("Articolo");
+		lblArticolo.setForeground(new Color(100, 149, 237));
+		lblArticolo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArticolo.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		lblArticolo.setBounds(108, 108, 96, 21);
+		contentPane.add(lblArticolo);
 		
 		JLabel label_3 = new JLabel("Prezzo");
-		label_3.setForeground(new Color(65, 105, 225));
+		label_3.setForeground(new Color(100, 149, 237));
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		label_3.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_3.setBounds(337, 108, 71, 21);
+		label_3.setBounds(203, 108, 96, 21);
 		contentPane.add(label_3);
 		
 		JLabel label_4 = new JLabel("Taglia");
-		label_4.setForeground(new Color(65, 105, 225));
+		label_4.setForeground(new Color(100, 149, 237));
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		label_4.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_4.setBounds(410, 108, 70, 21);
+		label_4.setBounds(300, 108, 96, 21);
 		contentPane.add(label_4);
 		
 		JLabel label_5 = new JLabel("Colore");
-		label_5.setForeground(new Color(65, 105, 225));
+		label_5.setForeground(new Color(100, 149, 237));
 		label_5.setHorizontalAlignment(SwingConstants.CENTER);
 		label_5.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_5.setBounds(479, 108, 70, 21);
+		label_5.setBounds(397, 108, 96, 21);
 		contentPane.add(label_5);
 		
 		JLabel label_6 = new JLabel("Reparto");
-		label_6.setForeground(new Color(65, 105, 225));
+		label_6.setForeground(new Color(100, 149, 237));
 		label_6.setHorizontalAlignment(SwingConstants.CENTER);
 		label_6.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_6.setBounds(551, 108, 70, 21);
+		label_6.setBounds(494, 108, 96, 21);
 		contentPane.add(label_6);
 		
 		JLabel label_7 = new JLabel("Q.t\u00E1");
-		label_7.setForeground(new Color(65, 105, 225));
+		label_7.setForeground(new Color(100, 149, 237));
 		label_7.setHorizontalAlignment(SwingConstants.CENTER);
 		label_7.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_7.setBounds(619, 108, 71, 21);
+		label_7.setBounds(594, 108, 96, 21);
 		contentPane.add(label_7);
 		
 		table.addMouseListener(new MouseAdapter() {
@@ -211,10 +209,10 @@ public class ModificaArticolo extends JFrame {
 					updatebtn.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							String id = table.getValueAt(table.getSelectedRow(), 0).toString();
-							String prz = table.getValueAt(table.getSelectedRow(), 3).toString();
-							String taglia = table.getValueAt(table.getSelectedRow(), 4).toString();
-							String colore = table.getValueAt(table.getSelectedRow(), 5).toString();
-							String qta = table.getValueAt(table.getSelectedRow(), 7).toString();
+							String prz = table.getValueAt(table.getSelectedRow(), 2).toString();
+							String taglia = table.getValueAt(table.getSelectedRow(), 3).toString();
+							String colore = table.getValueAt(table.getSelectedRow(), 4).toString();
+							String qta = table.getValueAt(table.getSelectedRow(), 6).toString();
 							
 							float prezzo = Float.parseFloat(prz);
 							int quantita = Integer.parseInt(qta);
@@ -226,12 +224,16 @@ public class ModificaArticolo extends JFrame {
 							artedit.setQuantita(quantita);
 							
 							if(c.updateArticolo(artedit)) {
-								new OKpopup().setVisible(true);
+								OKpopup ok = new OKpopup();
+								ok.setLocationRelativeTo(null);
+								ok.setVisible(true);
 								table.setModel(m.allArticoliModel());
 								updatebtn.setEnabled(false);
 							}
 							else {
-								new Errore().setVisible(true);
+								Errore e = new Errore();
+								e.setLocationRelativeTo(null);
+								e.setVisible(true);
 							}
 						}
 					});

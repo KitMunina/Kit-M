@@ -7,30 +7,29 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTable;
-import javax.swing.border.MatteBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
-import java.awt.Component;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class PartiInferiori extends JFrame {
+public class ScarpeCalzini extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	Model m = new Model();
-	Controller c = new Controller();
 
 	/**
 	 * Launch the application.
@@ -39,7 +38,7 @@ public class PartiInferiori extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PartiInferiori frame = new PartiInferiori();
+					ScarpeCalzini frame = new ScarpeCalzini();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +50,7 @@ public class PartiInferiori extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PartiInferiori() {
+	public ScarpeCalzini() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setBounds(100, 100, 600, 400);
@@ -61,10 +60,22 @@ public class PartiInferiori extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblPartiInferiori = new JLabel("Parti inferiori");
-		lblPartiInferiori.setFont(new Font("Tw Cen MT", Font.PLAIN, 25));
-		lblPartiInferiori.setBounds(10, 11, 233, 30);
-		contentPane.add(lblPartiInferiori);
+		JLabel lblScarpeECalzini = new JLabel("Scarpe e calzini");
+		lblScarpeECalzini.setFont(new Font("Tw Cen MT", Font.PLAIN, 25));
+		lblScarpeECalzini.setBounds(10, 11, 233, 30);
+		contentPane.add(lblScarpeECalzini);
+		
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		button.setIcon(new ImageIcon(ScarpeCalzini.class.getResource("/backbutton.png")));
+		button.setBorder(BorderFactory.createEmptyBorder());
+		button.setBackground(Color.WHITE);
+		button.setBounds(10, 354, 35, 35);
+		contentPane.add(button);
 		
 		table = new JTable();
 		table.setShowVerticalLines(false);
@@ -76,7 +87,7 @@ public class PartiInferiori extends JFrame {
 		table.setRowHeight(50);
 		table.setTableHeader(null);
 		table.setSelectionBackground(new Color(100, 149, 237));
-		table.setModel(m.allLowerParts());
+		table.setModel(m.allShoes());
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);
 		contentPane.add(table);
 		
@@ -85,28 +96,6 @@ public class PartiInferiori extends JFrame {
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane);
-		
-		JButton button = new JButton("");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		button.setIcon(new ImageIcon(PartiInferiori.class.getResource("/backbutton.png")));
-		button.setBorder(BorderFactory.createEmptyBorder());
-		button.setBackground(Color.WHITE);
-		button.setBounds(10, 354, 35, 35);
-		contentPane.add(button);
-		
-		JButton addtocart = new JButton("Aggiungi");
-		addtocart.setIcon(new ImageIcon(PartiInferiori.class.getResource("/cart_large.png")));
-		addtocart.setForeground(Color.BLACK);
-		addtocart.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		addtocart.setEnabled(false);
-		addtocart.setBorder(new LineBorder(Color.GRAY, 1, true));
-		addtocart.setBackground(SystemColor.menu);
-		addtocart.setBounds(430, 354, 160, 35);
-		contentPane.add(addtocart);
 		
 		JLabel lblArticolo = new JLabel("Articolo");
 		lblArticolo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -150,6 +139,16 @@ public class PartiInferiori extends JFrame {
 		label_5.setBounds(515, 52, 75, 21);
 		contentPane.add(label_5);
 		
+		JButton addtocart = new JButton("Aggiungi");
+		addtocart.setIcon(new ImageIcon(ScarpeCalzini.class.getResource("/cart_large.png")));
+		addtocart.setForeground(Color.BLACK);
+		addtocart.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		addtocart.setEnabled(false);
+		addtocart.setBorder(new LineBorder(Color.GRAY, 1, true));
+		addtocart.setBackground(SystemColor.menu);
+		addtocart.setBounds(430, 354, 160, 35);
+		contentPane.add(addtocart);
+		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -159,7 +158,7 @@ public class PartiInferiori extends JFrame {
 				else {
 					addtocart.setEnabled(true);
 				}
-			}
+			};
 		});
 	}
 }

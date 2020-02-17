@@ -26,6 +26,7 @@ public class ArticoloDaoImpl implements ArticoloDao {
 		Properties props = new Properties();
 		props.setProperty("user","postgres");
 		props.setProperty("password","170599");
+		
 		connection = null;
 		
 		try {
@@ -131,7 +132,7 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllUpperParts() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Tshirt','Camicia')";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Tshirt','Felpa','Camicia')";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 		
@@ -162,6 +163,126 @@ public class ArticoloDaoImpl implements ArticoloDao {
 		try {
 			Statement s = connection.createStatement();
 			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Gonna','Pantalone')";
+			ResultSet rs = s.executeQuery(query);
+			List<Articolo> articoli = new ArrayList<Articolo>();
+		
+			while (rs.next()) {
+				Articolo a = new Articolo();
+			
+				a.setIdarticolo(rs.getString(1));
+				a.setNome(rs.getString(2));
+				a.setDescrizione(rs.getString(3));
+				a.setPrezzo(rs.getFloat(4));
+				a.setTaglia(rs.getString(5));
+				a.setColore(rs.getString(6));
+				a.setReparto(rs.getString(7));
+				a.setQuantita(rs.getInt(8));
+			
+				articoli.add(a);
+			}
+		
+			return articoli;
+		}catch (Exception e) {
+			System.err.println("Errore SQL");
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Articolo> getAllShoes() {
+		try {
+			Statement s = connection.createStatement();
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Scarpe','Calzini')";
+			ResultSet rs = s.executeQuery(query);
+			List<Articolo> articoli = new ArrayList<Articolo>();
+		
+			while (rs.next()) {
+				Articolo a = new Articolo();
+			
+				a.setIdarticolo(rs.getString(1));
+				a.setNome(rs.getString(2));
+				a.setDescrizione(rs.getString(3));
+				a.setPrezzo(rs.getFloat(4));
+				a.setTaglia(rs.getString(5));
+				a.setColore(rs.getString(6));
+				a.setReparto(rs.getString(7));
+				a.setQuantita(rs.getInt(8));
+			
+				articoli.add(a);
+			}
+		
+			return articoli;
+		}catch (Exception e) {
+			System.err.println("Errore SQL");
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Articolo> getAllOvercoats() {
+		try {
+			Statement s = connection.createStatement();
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Cappotto','Giubbino')";
+			ResultSet rs = s.executeQuery(query);
+			List<Articolo> articoli = new ArrayList<Articolo>();
+		
+			while (rs.next()) {
+				Articolo a = new Articolo();
+			
+				a.setIdarticolo(rs.getString(1));
+				a.setNome(rs.getString(2));
+				a.setDescrizione(rs.getString(3));
+				a.setPrezzo(rs.getFloat(4));
+				a.setTaglia(rs.getString(5));
+				a.setColore(rs.getString(6));
+				a.setReparto(rs.getString(7));
+				a.setQuantita(rs.getInt(8));
+			
+				articoli.add(a);
+			}
+		
+			return articoli;
+		}catch (Exception e) {
+			System.err.println("Errore SQL");
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Articolo> getAllUnderwears() {
+		try {
+			Statement s = connection.createStatement();
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione='Intimo'";
+			ResultSet rs = s.executeQuery(query);
+			List<Articolo> articoli = new ArrayList<Articolo>();
+		
+			while (rs.next()) {
+				Articolo a = new Articolo();
+			
+				a.setIdarticolo(rs.getString(1));
+				a.setNome(rs.getString(2));
+				a.setDescrizione(rs.getString(3));
+				a.setPrezzo(rs.getFloat(4));
+				a.setTaglia(rs.getString(5));
+				a.setColore(rs.getString(6));
+				a.setReparto(rs.getString(7));
+				a.setQuantita(rs.getInt(8));
+			
+				articoli.add(a);
+			}
+		
+			return articoli;
+		}catch (Exception e) {
+			System.err.println("Errore SQL");
+			return null;
+		}
+	}
+	
+	@Override
+	public List<Articolo> getAllAccessories() {
+		try {
+			Statement s = connection.createStatement();
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in ('Borsa','Cappello','Orologio')";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 		

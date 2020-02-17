@@ -23,11 +23,27 @@ public class Controller {
 		return artdao.getAllLowerParts();
 	}
 	
-	public boolean insertArticolo(Articolo artnuovo) { //inserisce un nuovo articolo nel database
+	public List<Articolo> getAllShoes() { //lista di tutti gli articoli "scarpe e calzini"
+		return artdao.getAllShoes();
+	}
+	
+	public List<Articolo> getAllOvercoats() { //lista di tutti gli articoli "soprabiti"
+		return artdao.getAllOvercoats();
+	}
+	
+	public List<Articolo> getAllUnderwears() { //lista di tutti gli articoli "intimo"
+		return artdao.getAllUnderwears();
+	}
+	
+	public List<Articolo> getAllAccessories() { //lista di tutti gli articoli "accessori"
+		return artdao.getAllAccessories();
+	}
+	
+	public boolean insertArticolo(Articolo artnuovo) { //inserisce un nuovo articolo nel magazzino
 		return artdao.insertArticolo(artnuovo);
 	}
 	
-	public boolean updateArticolo(Articolo artedit) { //aggiornamento di un articolo
+	public boolean updateArticolo(Articolo artedit) { //aggiornamento di un articolo nel magazzino
 		return artdao.updateArticolo(artedit);
 	}
 	
@@ -90,12 +106,14 @@ public class Controller {
 			return true;
 		}
 		else {
-			new Errore().setVisible(true);
+			Errore e = new Errore();
+			e.setLocationRelativeTo(null);
+			e.setVisible(true);
 			return false;
 		}
 	}
 	
-	public Articolo findArticolo(String idarticolo) {
+	public Articolo findArticolo(String idarticolo) { //effettua la ricerca di un articolo per id
 		List<Articolo> a = artdao.getAllArticoli();
 		int i = 0;
 		
@@ -107,7 +125,9 @@ public class Controller {
 			return a.get(i);
 		}
 		else {
-			new Errore().setVisible(true);
+			Errore e = new Errore();
+			e.setLocationRelativeTo(null);
+			e.setVisible(true);
 			return null;
 		}
 	}

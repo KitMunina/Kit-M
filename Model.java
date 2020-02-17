@@ -66,4 +66,64 @@ public class Model {
 		
 		return model;
 	}
+	
+	public DefaultTableModel allShoes() {
+		String col[] = {"Nome","Prezzo","Taglia","Colore","Reparto","Quantita"};
+		DefaultTableModel model = new DefaultTableModel(col, 0);
+		List<Articolo> a = c.getAllShoes();
+		
+		for(int i=0; i<a.size(); i++) {
+			Object[] articoli = {a.get(i).getNome(), a.get(i).getPrezzo(), a.get(i).getTaglia(), a.get(i).getColore(),a.get(i).getReparto(), a.get(i).getQuantita()};
+			model.addRow(articoli);
+		}
+		
+		model.fireTableDataChanged();
+		
+		return model;
+	}
+	
+	public DefaultTableModel allOvercoats() {
+		String col[] = {"Nome","Prezzo","Taglia","Colore","Reparto","Quantita"};
+		DefaultTableModel model = new DefaultTableModel(col, 0);
+		List<Articolo> a = c.getAllOvercoats();
+	
+		for(int i=0; i<a.size(); i++) {
+			Object[] articoli = {a.get(i).getNome(), a.get(i).getPrezzo(), a.get(i).getTaglia(), a.get(i).getColore(),a.get(i).getReparto(), a.get(i).getQuantita()};
+			model.addRow(articoli);
+		}
+	
+		model.fireTableDataChanged();
+	
+		return model;
+	}
+	
+	public DefaultTableModel allUnderwears() {
+		String col[] = {"Nome","Prezzo","Taglia","Colore","Reparto","Quantita"};
+		DefaultTableModel model = new DefaultTableModel(col, 0);
+		List<Articolo> a = c.getAllUnderwears();
+	
+		for(int i=0; i<a.size(); i++) {
+			Object[] articoli = {a.get(i).getNome(), a.get(i).getPrezzo(), a.get(i).getTaglia(), a.get(i).getColore(),a.get(i).getReparto(), a.get(i).getQuantita()};
+			model.addRow(articoli);
+		}
+	
+		model.fireTableDataChanged();
+	
+		return model;
+	}
+	
+	public DefaultTableModel allAccessories() {
+		String col[] = {"Nome","Prezzo","Taglia","Colore","Reparto","Quantita"};
+		DefaultTableModel model = new DefaultTableModel(col, 0);
+		List<Articolo> a = c.getAllAccessories();
+	
+		for(int i=0; i<a.size(); i++) {
+			Object[] articoli = {a.get(i).getNome(), a.get(i).getPrezzo(), a.get(i).getTaglia(), a.get(i).getColore(),a.get(i).getReparto(), a.get(i).getQuantita()};
+			model.addRow(articoli);
+		}
+	
+		model.fireTableDataChanged();
+	
+		return model;
+	}
 }

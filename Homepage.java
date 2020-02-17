@@ -43,12 +43,6 @@ public class Homepage extends JFrame {
 	public boolean loggedc = false;
 	public boolean loggedad = false;
 	JLabel username = new JLabel("");
-	LoginCliente lg = new LoginCliente();
-	LoginAdmin la = new LoginAdmin();
-	AccessoEseguito ac = new AccessoEseguito();
-	PartiSuperiori ps = new PartiSuperiori();
-	PartiInferiori pi = new PartiInferiori();
-	Chiusura c = new Chiusura();
 	Controller ctrl = new Controller();
 	
 	/**
@@ -85,6 +79,7 @@ public class Homepage extends JFrame {
 		closebutton.setBounds(960, 11, 30, 30);
 		closebutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Chiusura c = new Chiusura();
 				c.setVisible(true);
 			}
 		});
@@ -99,10 +94,12 @@ public class Homepage extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!loggedc) {
 					dispose();
+					LoginCliente lg = new LoginCliente();
 					lg.setLocationRelativeTo(null);
 					lg.setVisible(true);
 				}
 				else {
+					AccessoEseguito ac = new AccessoEseguito();
 					ac.setLocationRelativeTo(null);
 					ac.ciao.setText("Hai gia' effettuato l'accesso");
 					ac.setVisible(true);
@@ -123,11 +120,6 @@ public class Homepage extends JFrame {
 		contentPane.add(username);
 		
 		JButton cartbutton = new JButton("");
-		cartbutton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
 		cartbutton.setToolTipText("Carrello");
 		cartbutton.setBounds(900, 63, 30, 30);
 		cartbutton.setIcon(new ImageIcon(Homepage.class.getResource("/carticon.png")));
@@ -150,7 +142,6 @@ public class Homepage extends JFrame {
 			}
 			
 			public void focusLost(FocusEvent e) {
-		        searchField.setText("Ricerca");
 		    }
 		});
 		searchField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
@@ -162,8 +153,8 @@ public class Homepage extends JFrame {
 		JButton searchbtn = new JButton("");
 		searchbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				List<Articolo> articolitrovati = new ArrayList<Articolo>();
-				
+				String atofind = searchField.getText();
+				searchField.setText("Ricerca");
 			}
 		});
 		searchbtn.setIcon(new ImageIcon(Homepage.class.getResource("/searchbtn.png")));
@@ -308,81 +299,17 @@ public class Homepage extends JFrame {
 		lblNewLabel.setBounds(10, 100, 980, 42);
 		contentPane.add(lblNewLabel);
 		
-		JButton tshirt = new JButton("Parti superiori");
-		tshirt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ps.setLocationRelativeTo(null);
-				ps.setVisible(true);
-			}
-		});
-		tshirt.setIcon(new ImageIcon(Homepage.class.getResource("/tshirt.png")));
-		tshirt.setVerticalTextPosition(SwingConstants.BOTTOM);
-		tshirt.setHorizontalTextPosition(SwingConstants.CENTER);
-		tshirt.setBackground(SystemColor.menu);
-		tshirt.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		tshirt.setBounds(130, 162, 180, 200);
-		contentPane.add(tshirt);
-		
-		JButton pants = new JButton("Parti inferiori");
-		pants.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				pi.setLocationRelativeTo(null);
-				pi.setVisible(true);
-			}
-		});
-		pants.setIcon(new ImageIcon(Homepage.class.getResource("/pantaloni.png")));
-		pants.setVerticalTextPosition(SwingConstants.BOTTOM);
-		pants.setHorizontalTextPosition(SwingConstants.CENTER);
-		pants.setBackground(SystemColor.menu);
-		pants.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		pants.setBounds(410, 162, 180, 200);
-		contentPane.add(pants);
-		
-		JButton scarpe = new JButton("Scarpe e calzini");
-		scarpe.setIcon(new ImageIcon(Homepage.class.getResource("/scarpe.png")));
-		scarpe.setVerticalTextPosition(SwingConstants.BOTTOM);
-		scarpe.setHorizontalTextPosition(SwingConstants.CENTER);
-		scarpe.setBackground(SystemColor.menu);
-		scarpe.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		scarpe.setBounds(690, 162, 180, 200);
-		contentPane.add(scarpe);
-		
-		JButton giacche = new JButton("Soprabiti");
-		giacche.setIcon(new ImageIcon(Homepage.class.getResource("/soprabiti.png")));
-		giacche.setVerticalTextPosition(SwingConstants.BOTTOM);
-		giacche.setHorizontalTextPosition(SwingConstants.CENTER);
-		giacche.setBackground(SystemColor.menu);
-		giacche.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		giacche.setBounds(130, 373, 180, 200);
-		contentPane.add(giacche);
-		
-		JButton cappelli = new JButton("Copricapi");
-		cappelli.setIcon(new ImageIcon(Homepage.class.getResource("/cappelli.png")));
-		cappelli.setVerticalTextPosition(SwingConstants.BOTTOM);
-		cappelli.setHorizontalTextPosition(SwingConstants.CENTER);
-		cappelli.setBackground(SystemColor.menu);
-		cappelli.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		cappelli.setBounds(410, 373, 180, 200);
-		contentPane.add(cappelli);
-		
-		JButton borse = new JButton("Borse e zaini");
-		borse.setIcon(new ImageIcon(Homepage.class.getResource("/borse.png")));
-		borse.setVerticalTextPosition(SwingConstants.BOTTOM);
-		borse.setHorizontalTextPosition(SwingConstants.CENTER);
-		borse.setBackground(SystemColor.menu);
-		borse.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		borse.setBounds(690, 373, 180, 200);
-		contentPane.add(borse);
-		
 		JButton button_1 = new JButton("");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!loggedad) {
 					dispose();
+					LoginAdmin la = new LoginAdmin();
 					la.setLocationRelativeTo(null);
 					la.setVisible(true);
 				}
 				else {
+					AccessoEseguito ac = new AccessoEseguito();
 					ac.setLocationRelativeTo(null);
 					ac.setVisible(true);
 				}
@@ -395,5 +322,101 @@ public class Homepage extends JFrame {
 		button_1.setBackground(Color.WHITE);
 		button_1.setBounds(960, 63, 30, 30);
 		contentPane.add(button_1);
+		
+		JButton tshirt = new JButton("Parti superiori");
+		tshirt.setBounds(140, 153, 180, 200);
+		contentPane.add(tshirt);
+		tshirt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PartiSuperiori ps = new PartiSuperiori();
+				ps.setLocationRelativeTo(null);
+				ps.setVisible(true);
+			}
+		});
+		tshirt.setIcon(new ImageIcon(Homepage.class.getResource("/tshirt.png")));
+		tshirt.setVerticalTextPosition(SwingConstants.BOTTOM);
+		tshirt.setHorizontalTextPosition(SwingConstants.CENTER);
+		tshirt.setBackground(SystemColor.menu);
+		tshirt.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		
+		JButton pants = new JButton("Parti inferiori");
+		pants.setBounds(410, 153, 180, 200);
+		contentPane.add(pants);
+		pants.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PartiInferiori pi = new PartiInferiori();
+				pi.setLocationRelativeTo(null);
+				pi.setVisible(true);
+			}
+		});
+		pants.setIcon(new ImageIcon(Homepage.class.getResource("/pantaloni.png")));
+		pants.setVerticalTextPosition(SwingConstants.BOTTOM);
+		pants.setHorizontalTextPosition(SwingConstants.CENTER);
+		pants.setBackground(SystemColor.menu);
+		pants.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		
+		JButton scarpe = new JButton("Scarpe e calzini");
+		scarpe.setBounds(680, 153, 180, 200);
+		contentPane.add(scarpe);
+		scarpe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScarpeCalzini sc = new ScarpeCalzini();
+				sc.setLocationRelativeTo(null);
+				sc.setVisible(true);
+			}
+		});
+		scarpe.setIcon(new ImageIcon(Homepage.class.getResource("/scarpe.png")));
+		scarpe.setVerticalTextPosition(SwingConstants.BOTTOM);
+		scarpe.setHorizontalTextPosition(SwingConstants.CENTER);
+		scarpe.setBackground(SystemColor.menu);
+		scarpe.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		
+		JButton giacche = new JButton("Soprabiti");
+		giacche.setBounds(140, 377, 180, 200);
+		contentPane.add(giacche);
+		giacche.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Soprabiti s = new Soprabiti();
+				s.setLocationRelativeTo(null);
+				s.setVisible(true);
+			}
+		});
+		giacche.setIcon(new ImageIcon(Homepage.class.getResource("/soprabiti.png")));
+		giacche.setVerticalTextPosition(SwingConstants.BOTTOM);
+		giacche.setHorizontalTextPosition(SwingConstants.CENTER);
+		giacche.setBackground(SystemColor.menu);
+		giacche.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		
+		JButton cappelli = new JButton("Intimo");
+		cappelli.setBounds(410, 377, 180, 200);
+		contentPane.add(cappelli);
+		cappelli.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Intimo cap = new Intimo();
+				cap.setLocationRelativeTo(null);
+				cap.setVisible(true);
+			}
+		});
+		cappelli.setIcon(new ImageIcon(Homepage.class.getResource("/intimo.png")));
+		cappelli.setVerticalTextPosition(SwingConstants.BOTTOM);
+		cappelli.setHorizontalTextPosition(SwingConstants.CENTER);
+		cappelli.setBackground(SystemColor.menu);
+		cappelli.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		
+		JButton borse = new JButton("Accessori");
+		borse.setBounds(680, 377, 180, 200);
+		contentPane.add(borse);
+		borse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Accessori bz = new Accessori();
+				bz.setLocationRelativeTo(null);
+				bz.setVisible(true);
+			}
+		});
+		borse.setIcon(new ImageIcon(Homepage.class.getResource("/accessori.png")));
+		borse.setVerticalTextPosition(SwingConstants.BOTTOM);
+		borse.setHorizontalTextPosition(SwingConstants.CENTER);
+		borse.setBackground(SystemColor.menu);
+		borse.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 	}
 }

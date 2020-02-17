@@ -29,6 +29,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.border.MatteBorder;
 
 public class RimuoviArticolo extends JFrame {
 
@@ -60,10 +61,6 @@ public class RimuoviArticolo extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		setUndecorated(true);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(Color.GRAY, 3, true));
@@ -81,7 +78,7 @@ public class RimuoviArticolo extends JFrame {
 		label.setIcon(new ImageIcon(RimuoviArticolo.class.getResource("/corner .png")));
 		label.setVerticalAlignment(SwingConstants.BOTTOM);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(364, 0, 333, 94);
+		label.setBounds(364, 3, 333, 94);
 		contentPane.add(label);
 		
 		JButton button = new JButton("");
@@ -97,6 +94,7 @@ public class RimuoviArticolo extends JFrame {
 		contentPane.add(button);
 		
 		table = new JTable();
+		table.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		table.setShowVerticalLines(false);
 		DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) table.getDefaultRenderer(String.class);
 		stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -104,7 +102,6 @@ public class RimuoviArticolo extends JFrame {
 		table.setSurrendersFocusOnKeystroke(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getTableHeader().setFont(new Font("TW Cent MT", Font.PLAIN, 18));
-		table.setBorder(new LineBorder(new Color(128, 128, 128), 1, true));
 		table.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		table.setBounds(10, 108, 630, 285);
 		table.setRowHeight(50);
@@ -116,7 +113,7 @@ public class RimuoviArticolo extends JFrame {
 		JLabel lblPerEliminareUn = new JLabel("Per eliminare un articolo, seleziona una riga e clicca sul tasto rimuovi");
 		lblPerEliminareUn.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPerEliminareUn.setForeground(Color.BLACK);
-		lblPerEliminareUn.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		lblPerEliminareUn.setFont(new Font("Tw Cen MT", Font.PLAIN, 13));
 		lblPerEliminareUn.setBounds(10, 49, 528, 25);
 		contentPane.add(lblPerEliminareUn);
 		
@@ -127,12 +124,12 @@ public class RimuoviArticolo extends JFrame {
 		label_1.setBounds(10, 85, 97, 21);
 		contentPane.add(label_1);
 		
-		JLabel label_2 = new JLabel("Nome");
-		label_2.setForeground(new Color(100, 149, 237));
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		label_2.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_2.setBounds(105, 85, 97, 21);
-		contentPane.add(label_2);
+		JLabel lblArticolo = new JLabel("Articolo");
+		lblArticolo.setForeground(new Color(100, 149, 237));
+		lblArticolo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArticolo.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		lblArticolo.setBounds(105, 85, 97, 21);
+		contentPane.add(lblArticolo);
 		
 		JLabel label_4 = new JLabel("Prezzo");
 		label_4.setForeground(new Color(100, 149, 237));

@@ -94,9 +94,6 @@ public class LoginCliente extends JFrame {
 		JButton button = new JButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Homepage h = new Homepage();
-				h.setLocationRelativeTo(null);
-				h.setVisible(true);
 				dispose();
 			}
 		});

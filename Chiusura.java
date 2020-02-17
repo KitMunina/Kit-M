@@ -58,7 +58,8 @@ public class Chiusura extends JDialog {
 		lblNewLabel.setBounds(10, 74, 430, 72);
 		contentPanel.add(lblNewLabel);
 		
-		JButton btnSi = new JButton("No");
+		JButton btnSi = new JButton("NO");
+		btnSi.setForeground(new Color(0, 0, 0));
 		btnSi.setBackground(SystemColor.menu);
 		btnSi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -69,16 +70,17 @@ public class Chiusura extends JDialog {
 		btnSi.setBounds(230, 157, 89, 35);
 		contentPanel.add(btnSi);
 		
-		JButton button = new JButton("Si");
-		button.setBackground(SystemColor.menu);
-		button.addActionListener(new ActionListener() {
+		JButton btnSi_1 = new JButton("SI");
+		btnSi_1.setForeground(new Color(34, 139, 34));
+		btnSi_1.setBackground(SystemColor.menu);
+		btnSi_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		button.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		button.setBounds(131, 157, 89, 35);
-		contentPanel.add(button);
+		btnSi_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
+		btnSi_1.setBounds(131, 157, 89, 35);
+		contentPanel.add(btnSi_1);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Chiusura.class.getResource("/chiusurapopup.png")));

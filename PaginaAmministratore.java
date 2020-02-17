@@ -95,8 +95,9 @@ public class PaginaAmministratore extends JFrame {
 		addbutton.setHorizontalTextPosition(SwingConstants.CENTER);
 		addbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AggiungiArticolo adda = new AggiungiArticolo();
-				adda.setVisible(true);
+				AggiungiArticolo aggart = new AggiungiArticolo();
+				aggart.setLocationRelativeTo(null);
+				aggart.setVisible(true);
 			}
 		});
 		addbutton.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
@@ -119,7 +120,9 @@ public class PaginaAmministratore extends JFrame {
 		JButton btnModificaArticolo = new JButton("Modifica articolo");
 		btnModificaArticolo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new ModificaArticolo().setVisible(true);
+				ModificaArticolo modart = new ModificaArticolo();
+				modart.setLocationRelativeTo(null);
+				modart.setVisible(true);
 			}
 		});
 		btnModificaArticolo.setIcon(new ImageIcon(PaginaAmministratore.class.getResource("/updatebutton.png")));
@@ -133,7 +136,9 @@ public class PaginaAmministratore extends JFrame {
 		JButton btnEliminaArticolo = new JButton("Elimina articolo");
 		btnEliminaArticolo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new RimuoviArticolo().setVisible(true);
+				RimuoviArticolo rimart = new RimuoviArticolo();
+				rimart.setLocationRelativeTo(null);
+				rimart.setVisible(true);
 			}
 		});
 		btnEliminaArticolo.setIcon(new ImageIcon(PaginaAmministratore.class.getResource("/removebutton.png")));
@@ -192,6 +197,21 @@ public class PaginaAmministratore extends JFrame {
 		lblDalDatabase.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		lblDalDatabase.setBounds(633, 402, 200, 25);
 		contentPane.add(lblDalDatabase);
+		
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				Homepage h = new Homepage();
+				h.setLocationRelativeTo(null);
+				h.setVisible(true);
+			}
+		});
+		button.setIcon(new ImageIcon(PaginaAmministratore.class.getResource("/backbutton.png")));
+		button.setBorder(BorderFactory.createEmptyBorder());
+		button.setBackground(Color.WHITE);
+		button.setBounds(10, 454, 35, 35);
+		contentPane.add(button);
 		
 		JLabel background = new JLabel("");
 		background.setIcon(new ImageIcon(PaginaAmministratore.class.getResource("/background2.png")));

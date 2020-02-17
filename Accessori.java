@@ -6,31 +6,30 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTable;
-import javax.swing.border.MatteBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
-import java.awt.Component;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class PartiInferiori extends JFrame {
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Accessori extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	Model m = new Model();
-	Controller c = new Controller();
 
 	/**
 	 * Launch the application.
@@ -39,7 +38,7 @@ public class PartiInferiori extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PartiInferiori frame = new PartiInferiori();
+					Accessori frame = new Accessori();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +50,7 @@ public class PartiInferiori extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PartiInferiori() {
+	public Accessori() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setBounds(100, 100, 600, 400);
@@ -61,10 +60,10 @@ public class PartiInferiori extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblPartiInferiori = new JLabel("Parti inferiori");
-		lblPartiInferiori.setFont(new Font("Tw Cen MT", Font.PLAIN, 25));
-		lblPartiInferiori.setBounds(10, 11, 233, 30);
-		contentPane.add(lblPartiInferiori);
+		JLabel lblBorseEZaini = new JLabel("Accessori");
+		lblBorseEZaini.setFont(new Font("Tw Cen MT", Font.PLAIN, 25));
+		lblBorseEZaini.setBounds(10, 11, 90, 30);
+		contentPane.add(lblBorseEZaini);
 		
 		table = new JTable();
 		table.setShowVerticalLines(false);
@@ -76,7 +75,7 @@ public class PartiInferiori extends JFrame {
 		table.setRowHeight(50);
 		table.setTableHeader(null);
 		table.setSelectionBackground(new Color(100, 149, 237));
-		table.setModel(m.allLowerParts());
+		table.setModel(m.allAccessories());
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);
 		contentPane.add(table);
 		
@@ -92,14 +91,14 @@ public class PartiInferiori extends JFrame {
 				dispose();
 			}
 		});
-		button.setIcon(new ImageIcon(PartiInferiori.class.getResource("/backbutton.png")));
+		button.setIcon(new ImageIcon(Accessori.class.getResource("/backbutton.png")));
 		button.setBorder(BorderFactory.createEmptyBorder());
 		button.setBackground(Color.WHITE);
 		button.setBounds(10, 354, 35, 35);
 		contentPane.add(button);
 		
 		JButton addtocart = new JButton("Aggiungi");
-		addtocart.setIcon(new ImageIcon(PartiInferiori.class.getResource("/cart_large.png")));
+		addtocart.setIcon(new ImageIcon(Accessori.class.getResource("/cart_large.png")));
 		addtocart.setForeground(Color.BLACK);
 		addtocart.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		addtocart.setEnabled(false);
@@ -159,7 +158,8 @@ public class PartiInferiori extends JFrame {
 				else {
 					addtocart.setEnabled(true);
 				}
-			}
+			};
 		});
 	}
+
 }
