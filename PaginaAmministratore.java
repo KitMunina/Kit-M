@@ -54,15 +54,16 @@ public class PaginaAmministratore extends JFrame {
 	 * Create the frame.
 	 */
 	public PaginaAmministratore() {
+		inizializzaFrame();
+		setLocationRelativeTo(null);
+	}
+	
+	private void inizializzaFrame() {
 		setResizable(false);
 		setTitle("Pannello di controllo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 845, 500);
 		setUndecorated(true);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(Color.GRAY, 3, true));
@@ -121,7 +122,6 @@ public class PaginaAmministratore extends JFrame {
 		btnModificaArticolo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ModificaArticolo modart = new ModificaArticolo();
-				modart.setLocationRelativeTo(null);
 				modart.setVisible(true);
 			}
 		});
@@ -137,7 +137,6 @@ public class PaginaAmministratore extends JFrame {
 		btnEliminaArticolo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RimuoviArticolo rimart = new RimuoviArticolo();
-				rimart.setLocationRelativeTo(null);
 				rimart.setVisible(true);
 			}
 		});

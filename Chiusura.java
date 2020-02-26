@@ -40,12 +40,13 @@ public class Chiusura extends JDialog {
 	 * Create the dialog.
 	 */
 	public Chiusura() {
+		inizializzaPopup();
+		setLocationRelativeTo(null);
+	}
+	
+	private void inizializzaPopup() {
 		setUndecorated(true);
 		setBounds(100, 100, 450, 220);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new LineBorder(Color.GRAY, 3, true));
@@ -71,8 +72,8 @@ public class Chiusura extends JDialog {
 		contentPanel.add(btnSi);
 		
 		JButton btnSi_1 = new JButton("SI");
-		btnSi_1.setForeground(new Color(34, 139, 34));
-		btnSi_1.setBackground(SystemColor.menu);
+		btnSi_1.setForeground(Color.WHITE);
+		btnSi_1.setBackground(new Color(30, 144, 255));
 		btnSi_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);

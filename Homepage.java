@@ -38,22 +38,26 @@ import javax.swing.border.MatteBorder;
 
 public class Homepage extends JFrame {
 	
+	static boolean loginstatuscustomer = false;
+	static boolean loginstatusadmin = false;
 	private JPanel contentPane;
-	private JTextField searchField;
-	public boolean loggedc = false;
-	public boolean loggedad = false;
-	JLabel username = new JLabel("");
+	static JLabel username = new JLabel("");
+	static JButton cartbutton = new JButton("");
+	static JButton loginbutton = new JButton("");
+	static JButton adminlogin = new JButton("");
+	static Cliente cliente = null;
+	static Carrello carrello = null;
 	Controller ctrl = new Controller();
 	
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Homepage frame = new Homepage();
-					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,6 +70,11 @@ public class Homepage extends JFrame {
 	 * Create the frame.
 	 */
 	public Homepage() {
+		inizializzaFrame();
+		setLocationRelativeTo(null);
+	}
+	
+	private void inizializzaFrame() {
 		setTitle("Kit&M");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setUndecorated(true);
@@ -89,20 +98,15 @@ public class Homepage extends JFrame {
 		closebutton.setBackground(Color.WHITE);
 		contentPane.add(closebutton);
 		
-		JButton loginbutton = new JButton("");
 		loginbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!loggedc) {
-					dispose();
+				if(!loginstatuscustomer) {
 					LoginCliente lg = new LoginCliente();
-					lg.setLocationRelativeTo(null);
 					lg.setVisible(true);
 				}
 				else {
-					AccessoEseguito ac = new AccessoEseguito();
-					ac.setLocationRelativeTo(null);
-					ac.ciao.setText("Hai gia' effettuato l'accesso");
-					ac.setVisible(true);
+					MioAccount account = new MioAccount();
+					account.setVisible(true);
 				}
 			}
 		});
@@ -118,8 +122,20 @@ public class Homepage extends JFrame {
 		username.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		username.setBounds(800, 100, 108, 14);
 		contentPane.add(username);
-		
-		JButton cartbutton = new JButton("");
+		cartbutton.setEnabled(false);
+		cartbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if((cliente != null) && (carrello != null)) {
+					VisualizzaCarrello vc = new VisualizzaCarrello();
+					vc.setVisible(true);
+				}
+				else {
+					Errore err = new Errore();
+					Errore.errore.setText("Devi prima effettuare l'accesso!");
+					err.setVisible(true);
+				}
+			}
+		});
 		cartbutton.setToolTipText("Carrello");
 		cartbutton.setBounds(900, 63, 30, 30);
 		cartbutton.setIcon(new ImageIcon(Homepage.class.getResource("/carticon.png")));
@@ -128,40 +144,10 @@ public class Homepage extends JFrame {
 		contentPane.add(cartbutton);
 		
 		JLabel lblB = new JLabel("");
-		lblB.setBounds(10, 5, 980, 46);
+		lblB.setBounds(10, 12, 980, 46);
 		lblB.setHorizontalAlignment(SwingConstants.CENTER);
 		lblB.setIcon(new ImageIcon(Homepage.class.getResource("/logo_home.png")));
 		contentPane.add(lblB);
-		
-		searchField = new JTextField();
-		searchField.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.GRAY));
-		searchField.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				searchField.setText("");
-			}
-			
-			public void focusLost(FocusEvent e) {
-		    }
-		});
-		searchField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		searchField.setText("Ricerca");
-		searchField.setBounds(400, 66, 200, 21);
-		contentPane.add(searchField);
-		searchField.setColumns(10);
-		
-		JButton searchbtn = new JButton("");
-		searchbtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String atofind = searchField.getText();
-				searchField.setText("Ricerca");
-			}
-		});
-		searchbtn.setIcon(new ImageIcon(Homepage.class.getResource("/searchbtn.png")));
-		searchbtn.setBounds(610, 66, 30, 21);
-		searchbtn.setBorder(BorderFactory.createEmptyBorder());
-		searchbtn.setBackground(Color.WHITE);
-		contentPane.add(searchbtn);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(13, 68, 255, 21);
@@ -175,50 +161,13 @@ public class Homepage extends JFrame {
 		mnUomo.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		menuBar.add(mnUomo);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("T-Shirt & Polo");
-		mntmNewMenuItem.setIcon(null);
-		mntmNewMenuItem.setBackground(Color.WHITE);
-		mntmNewMenuItem.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnUomo.add(mntmNewMenuItem);
-		
-		JMenuItem mntmCamicie = new JMenuItem("Camicie");
-		mntmCamicie.setIcon(null);
-		mntmCamicie.setBackground(Color.WHITE);
-		mntmCamicie.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnUomo.add(mntmCamicie);
-		
-		JMenuItem mntmPantaloni = new JMenuItem("Pantaloni");
-		mntmPantaloni.setIcon(null);
-		mntmPantaloni.setBackground(Color.WHITE);
-		mntmPantaloni.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnUomo.add(mntmPantaloni);
-		
-		JMenuItem mntmScarpe = new JMenuItem("Scarpe");
-		mntmScarpe.setBackground(Color.WHITE);
-		mntmScarpe.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnUomo.add(mntmScarpe);
-		
-		JMenuItem mntmCappotti = new JMenuItem("Cappotti");
-		mntmCappotti.setBackground(Color.WHITE);
-		mntmCappotti.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnUomo.add(mntmCappotti);
-		
-		JMenuItem mntmGiubbini = new JMenuItem("Giubbini");
-		mntmGiubbini.setBackground(Color.WHITE);
-		mntmGiubbini.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnUomo.add(mntmGiubbini);
-		
-		JMenuItem mntmIntimo = new JMenuItem("Intimo");
-		mntmIntimo.setBackground(Color.WHITE);
-		mntmIntimo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnUomo.add(mntmIntimo);
-		
-		JMenuItem mntmCalzini = new JMenuItem("Calzini");
-		mntmCalzini.setBackground(Color.WHITE);
-		mntmCalzini.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnUomo.add(mntmCalzini);
-		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Mostra tutto");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Vai al reparto maschile");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RepartoMaschile rm = new RepartoMaschile();
+				rm.setVisible(true);
+			}
+		});
 		mntmNewMenuItem_1.setBackground(Color.WHITE);
 		mntmNewMenuItem_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		mnUomo.add(mntmNewMenuItem_1);
@@ -227,70 +176,16 @@ public class Homepage extends JFrame {
 		mnDonna.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		menuBar.add(mnDonna);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("T-Shirt");
-		mntmNewMenuItem_2.setBackground(Color.WHITE);
-		mntmNewMenuItem_2.setSelected(true);
-		mntmNewMenuItem_2.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnDonna.add(mntmNewMenuItem_2);
-		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Camicie");
-		mntmNewMenuItem_3.setBackground(Color.WHITE);
-		mntmNewMenuItem_3.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnDonna.add(mntmNewMenuItem_3);
-		
-		JMenuItem mntmPantaloni_1 = new JMenuItem("Pantaloni");
-		mntmPantaloni_1.setBackground(Color.WHITE);
-		mntmPantaloni_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnDonna.add(mntmPantaloni_1);
-		
-		JMenuItem mntmGonne = new JMenuItem("Gonne");
-		mntmGonne.setBackground(Color.WHITE);
-		mntmGonne.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnDonna.add(mntmGonne);
-		
-		JMenuItem mntmCappotti_1 = new JMenuItem("Cappotti");
-		mntmCappotti_1.setBackground(Color.WHITE);
-		mntmCappotti_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnDonna.add(mntmCappotti_1);
-		
-		JMenuItem mntmCalzini_1 = new JMenuItem("Calzini");
-		mntmCalzini_1.setBackground(Color.WHITE);
-		mntmCalzini_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnDonna.add(mntmCalzini_1);
-		
-		JMenuItem mntmScarpe_1 = new JMenuItem("Scarpe e tacchi");
-		mntmScarpe_1.setBackground(Color.WHITE);
-		mntmScarpe_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnDonna.add(mntmScarpe_1);
-		
-		JMenuItem mntmIntimo_1 = new JMenuItem("Intimo");
-		mntmIntimo_1.setBackground(Color.WHITE);
-		mntmIntimo_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnDonna.add(mntmIntimo_1);
-		
-		JMenuItem mntmMostraTutto = new JMenuItem("Mostra tutto");
+		JMenuItem mntmMostraTutto = new JMenuItem("Vai al reparto femminle");
+		mntmMostraTutto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RepartoFemminile rf = new RepartoFemminile();
+				rf.setVisible(true);
+			}
+		});
 		mntmMostraTutto.setBackground(Color.WHITE);
 		mntmMostraTutto.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		mnDonna.add(mntmMostraTutto);
-		
-		JMenu mnAccessori = new JMenu("ACCESSORI");
-		mnAccessori.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		menuBar.add(mnAccessori);
-		
-		JMenuItem mntmBorseEZaini = new JMenuItem("Borse e zaini");
-		mntmBorseEZaini.setBackground(Color.WHITE);
-		mntmBorseEZaini.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnAccessori.add(mntmBorseEZaini);
-		
-		JMenuItem mntmCappelli = new JMenuItem("Cappelli");
-		mntmCappelli.setBackground(Color.WHITE);
-		mntmCappelli.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnAccessori.add(mntmCappelli);
-		
-		JMenuItem mntmOrologi = new JMenuItem("Orologi");
-		mntmOrologi.setBackground(Color.WHITE);
-		mntmOrologi.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		mnAccessori.add(mntmOrologi);
 		
 		JLabel lblNewLabel = new JLabel("Esplora il negozio per categoria prodotto:");
 		lblNewLabel.setForeground(new Color(30, 144, 255));
@@ -299,29 +194,26 @@ public class Homepage extends JFrame {
 		lblNewLabel.setBounds(10, 100, 980, 42);
 		contentPane.add(lblNewLabel);
 		
-		JButton button_1 = new JButton("");
-		button_1.addActionListener(new ActionListener() {
+		adminlogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!loggedad) {
+				if(!loginstatusadmin) {
 					dispose();
 					LoginAdmin la = new LoginAdmin();
-					la.setLocationRelativeTo(null);
 					la.setVisible(true);
 				}
 				else {
 					AccessoEseguito ac = new AccessoEseguito();
-					ac.setLocationRelativeTo(null);
 					ac.setVisible(true);
 				}
 			}
 		});
-		button_1.setIcon(new ImageIcon(Homepage.class.getResource("/database.png")));
-		button_1.setToolTipText("Pannello di controllo amministratore");
-		button_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 12));
-		button_1.setBorder(BorderFactory.createEmptyBorder());
-		button_1.setBackground(Color.WHITE);
-		button_1.setBounds(960, 63, 30, 30);
-		contentPane.add(button_1);
+		adminlogin.setIcon(new ImageIcon(Homepage.class.getResource("/database.png")));
+		adminlogin.setToolTipText("Pannello di controllo amministratore");
+		adminlogin.setFont(new Font("Tw Cen MT", Font.PLAIN, 12));
+		adminlogin.setBorder(BorderFactory.createEmptyBorder());
+		adminlogin.setBackground(Color.WHITE);
+		adminlogin.setBounds(960, 63, 30, 30);
+		contentPane.add(adminlogin);
 		
 		JButton tshirt = new JButton("Parti superiori");
 		tshirt.setBounds(140, 153, 180, 200);
@@ -329,7 +221,6 @@ public class Homepage extends JFrame {
 		tshirt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PartiSuperiori ps = new PartiSuperiori();
-				ps.setLocationRelativeTo(null);
 				ps.setVisible(true);
 			}
 		});
@@ -345,7 +236,6 @@ public class Homepage extends JFrame {
 		pants.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PartiInferiori pi = new PartiInferiori();
-				pi.setLocationRelativeTo(null);
 				pi.setVisible(true);
 			}
 		});
@@ -361,7 +251,6 @@ public class Homepage extends JFrame {
 		scarpe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScarpeCalzini sc = new ScarpeCalzini();
-				sc.setLocationRelativeTo(null);
 				sc.setVisible(true);
 			}
 		});
@@ -377,7 +266,6 @@ public class Homepage extends JFrame {
 		giacche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Soprabiti s = new Soprabiti();
-				s.setLocationRelativeTo(null);
 				s.setVisible(true);
 			}
 		});
@@ -393,7 +281,6 @@ public class Homepage extends JFrame {
 		cappelli.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Intimo cap = new Intimo();
-				cap.setLocationRelativeTo(null);
 				cap.setVisible(true);
 			}
 		});
@@ -409,7 +296,6 @@ public class Homepage extends JFrame {
 		borse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Accessori bz = new Accessori();
-				bz.setLocationRelativeTo(null);
 				bz.setVisible(true);
 			}
 		});

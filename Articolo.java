@@ -1,20 +1,20 @@
 package main;
 
 public class Articolo {
-	private String idarticolo;
+	private int idarticolo;
 	private String nome;
 	private String descrizione;
 	private float prezzo;
 	private String taglia;
 	private String colore;
 	private String reparto;
-	private int quantita;
+	private int disponibilita;
 	
-	public String getIdarticolo() {
+	public int getIdarticolo() {
 		return idarticolo;
 	}
 	
-	public void setIdarticolo(String idarticolo) {
+	public void setIdarticolo(int idarticolo) {
 		this.idarticolo = idarticolo;
 	}
 	
@@ -66,11 +66,11 @@ public class Articolo {
 		this.reparto = reparto;
 	}
 	
-	public int getQuantita() {
-		return quantita;
+	public int getDisponibilita() {
+		return disponibilita;
 	}
 	
-	public void setQuantita(int quantita) {
-		this.quantita = quantita;
+	public void setDisponibilita(int disponibilita) {
+		this.disponibilita = disponibilita;
 	}
 }

@@ -26,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -36,7 +38,6 @@ public class RimuoviArticolo extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	Controller c = new Controller();
-	Model m = new Model();
 
 	/**
 	 * Launch the application.
@@ -57,7 +58,35 @@ public class RimuoviArticolo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public RimuoviArticolo() {
+		inizializzaFrame();
+		setLocationRelativeTo(null);
+		
+		List<Articolo> a = c.getAllArticoli();
+		String col[] = {"ID","Nome","Prezzo","Taglia","Colore","Reparto","Disponibilita"};
+		DefaultTableModel model = new DefaultTableModel(col, 0) {
+			@Override
+			public boolean isCellEditable(int row, int col)
+	        {
+	            return col == 2 || col == 3 || col == 4 || col == 6;
+	        }
+	    };
+		
+		for(int i=0; i<a.size(); i++) {
+			Object[] articoli = {a.get(i).getIdarticolo(), a.get(i).getNome(), a.get(i).getPrezzo(), a.get(i).getTaglia(), a.get(i).getColore(),a.get(i).getReparto(), a.get(i).getDisponibilita()};
+			model.addRow(articoli);
+		}
+				
+		DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) table.getDefaultRenderer(String.class);
+		stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		table.setModel(model);
+		table.getColumnModel().getColumn(0).setPreferredWidth(35);
+		table.getColumnModel().getColumn(1).setPreferredWidth(200);
+		table.getColumnModel().getColumn(6).setPreferredWidth(35);
+	}
+	
+	private void inizializzaFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 450);
 		setUndecorated(true);
@@ -94,8 +123,8 @@ public class RimuoviArticolo extends JFrame {
 		contentPane.add(button);
 		
 		table = new JTable();
-		table.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		table.setShowVerticalLines(false);
+		table.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		DefaultTableCellRenderer stringRenderer = (DefaultTableCellRenderer) table.getDefaultRenderer(String.class);
 		stringRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		table.setBackground(Color.WHITE);
@@ -107,7 +136,6 @@ public class RimuoviArticolo extends JFrame {
 		table.setRowHeight(50);
 		table.setSelectionBackground(new Color(100, 149, 237));
 		table.setTableHeader(null);
-		table.setModel(m.allArticoliModel());
 		contentPane.add(table);
 		
 		JLabel lblPerEliminareUn = new JLabel("Per eliminare un articolo, seleziona una riga e clicca sul tasto rimuovi");
@@ -116,55 +144,6 @@ public class RimuoviArticolo extends JFrame {
 		lblPerEliminareUn.setFont(new Font("Tw Cen MT", Font.PLAIN, 13));
 		lblPerEliminareUn.setBounds(10, 49, 528, 25);
 		contentPane.add(lblPerEliminareUn);
-		
-		JLabel label_1 = new JLabel("ID");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setForeground(new Color(100, 149, 237));
-		label_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_1.setBounds(10, 85, 97, 21);
-		contentPane.add(label_1);
-		
-		JLabel lblArticolo = new JLabel("Articolo");
-		lblArticolo.setForeground(new Color(100, 149, 237));
-		lblArticolo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblArticolo.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		lblArticolo.setBounds(105, 85, 97, 21);
-		contentPane.add(lblArticolo);
-		
-		JLabel label_4 = new JLabel("Prezzo");
-		label_4.setForeground(new Color(100, 149, 237));
-		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		label_4.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_4.setBounds(203, 85, 97, 21);
-		contentPane.add(label_4);
-		
-		JLabel label_5 = new JLabel("Taglia");
-		label_5.setForeground(new Color(100, 149, 237));
-		label_5.setHorizontalAlignment(SwingConstants.CENTER);
-		label_5.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_5.setBounds(301, 85, 97, 21);
-		contentPane.add(label_5);
-		
-		JLabel label_6 = new JLabel("Colore");
-		label_6.setForeground(new Color(100, 149, 237));
-		label_6.setHorizontalAlignment(SwingConstants.CENTER);
-		label_6.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_6.setBounds(397, 85, 97, 21);
-		contentPane.add(label_6);
-		
-		JLabel label_7 = new JLabel("Reparto");
-		label_7.setForeground(new Color(100, 149, 237));
-		label_7.setHorizontalAlignment(SwingConstants.CENTER);
-		label_7.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_7.setBounds(494, 85, 97, 21);
-		contentPane.add(label_7);
-		
-		JLabel label_8 = new JLabel("Q.t\u00E1");
-		label_8.setForeground(new Color(100, 149, 237));
-		label_8.setHorizontalAlignment(SwingConstants.CENTER);
-		label_8.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_8.setBounds(593, 85, 97, 21);
-		contentPane.add(label_8);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 117, 680, 276);
@@ -181,6 +160,55 @@ public class RimuoviArticolo extends JFrame {
 		rimuovibutton.setBounds(540, 404, 150, 35);
 		contentPane.add(rimuovibutton);
 		
+		JLabel label_1 = new JLabel("ID");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setForeground(new Color(100, 149, 237));
+		label_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_1.setBounds(10, 85, 48, 21);
+		contentPane.add(label_1);
+		
+		JLabel label_2 = new JLabel("Articolo");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setForeground(new Color(100, 149, 237));
+		label_2.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_2.setBounds(56, 85, 214, 21);
+		contentPane.add(label_2);
+		
+		JLabel label_3 = new JLabel("Prezzo");
+		label_3.setHorizontalAlignment(SwingConstants.CENTER);
+		label_3.setForeground(new Color(100, 149, 237));
+		label_3.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_3.setBounds(270, 85, 89, 21);
+		contentPane.add(label_3);
+		
+		JLabel label_4 = new JLabel("Taglia");
+		label_4.setHorizontalAlignment(SwingConstants.CENTER);
+		label_4.setForeground(new Color(100, 149, 237));
+		label_4.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_4.setBounds(360, 85, 87, 21);
+		contentPane.add(label_4);
+		
+		JLabel label_5 = new JLabel("Colore");
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setForeground(new Color(100, 149, 237));
+		label_5.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_5.setBounds(446, 85, 89, 21);
+		contentPane.add(label_5);
+		
+		JLabel label_6 = new JLabel("Reparto");
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setForeground(new Color(100, 149, 237));
+		label_6.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_6.setBounds(534, 85, 89, 21);
+		contentPane.add(label_6);
+		
+		JLabel label_7 = new JLabel("Q.t\u00E1");
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setForeground(new Color(100, 149, 237));
+		label_7.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		label_7.setBounds(623, 85, 49, 21);
+		contentPane.add(label_7);
+		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -191,16 +219,18 @@ public class RimuoviArticolo extends JFrame {
 					rimuovibutton.setEnabled(true);
 					rimuovibutton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+							int id = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
 							
 							Articolo artremove = c.findArticolo(id);
 							if(c.deleteArticolo(artremove)) {
-								new OKpopup().setVisible(true);
-								table.setModel(m.allArticoliModel());
+								((DefaultTableModel)table.getModel()).removeRow(table.getSelectedRow());
+								OKpopup ok = new OKpopup();
+								ok.setVisible(true);
 								rimuovibutton.setEnabled(false);
 							}
 							else {
-								new Errore().setVisible(true);
+								Errore err = new Errore();
+								err.setVisible(true);
 							}
 						}
 					});

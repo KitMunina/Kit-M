@@ -30,7 +30,6 @@ import javax.swing.ImageIcon;
 public class AggiungiArticolo extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField idField;
 	private JTextField nomeField;
 	private JTextField coloreField;
 	Controller c = new Controller();
@@ -71,41 +70,29 @@ public class AggiungiArticolo extends JFrame {
 		lblInserisciNuovoArticolo.setBounds(10, 11, 310, 25);
 		contentPane.add(lblInserisciNuovoArticolo);
 		
-		JLabel lblNewLabel = new JLabel("ID Articolo:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblNewLabel.setBounds(44, 97, 90, 26);
-		contentPane.add(lblNewLabel);
-		
-		idField = new JTextField();
-		idField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		idField.setBounds(144, 97, 155, 26);
-		contentPane.add(idField);
-		idField.setColumns(10);
-		
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNome.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblNome.setBounds(81, 134, 53, 26);
+		lblNome.setBounds(82, 110, 53, 26);
 		contentPane.add(lblNome);
 		
 		nomeField = new JTextField();
 		nomeField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		nomeField.setColumns(10);
-		nomeField.setBounds(144, 136, 155, 26);
+		nomeField.setBounds(145, 112, 155, 26);
 		contentPane.add(nomeField);
 		
 		JLabel lblDescrizione = new JLabel("Descrizione:");
 		lblDescrizione.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDescrizione.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblDescrizione.setBounds(44, 171, 90, 26);
+		lblDescrizione.setBounds(45, 134, 90, 26);
 		contentPane.add(lblDescrizione);
 		
 		JComboBox<String> descrizioneCombo = new JComboBox<String>();
 		descrizioneCombo.setMaximumRowCount(5);
 		descrizioneCombo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		descrizioneCombo.setBackground(Color.WHITE);
-		descrizioneCombo.setBounds(144, 171, 155, 26);
+		descrizioneCombo.setBounds(145, 147, 155, 26);
 		contentPane.add(descrizioneCombo);
 		descrizioneCombo.addItem("Tshirt");
 		descrizioneCombo.addItem("Felpa");
@@ -124,46 +111,46 @@ public class AggiungiArticolo extends JFrame {
 		JLabel lblPrezzo = new JLabel("Prezzo:");
 		lblPrezzo.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPrezzo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblPrezzo.setBounds(68, 208, 66, 26);
+		lblPrezzo.setBounds(69, 184, 66, 26);
 		contentPane.add(lblPrezzo);
 		
 		JSpinner intSpin = new JSpinner();
 		intSpin.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		intSpin.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		intSpin.setBackground(Color.WHITE);
-		intSpin.setBounds(144, 208, 45, 26);
+		intSpin.setBounds(145, 184, 45, 26);
 		contentPane.add(intSpin);
 		
 		JLabel label = new JLabel(",");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		label.setBounds(187, 209, 21, 25);
+		label.setBounds(188, 185, 21, 25);
 		contentPane.add(label);
 		
 		JSpinner decimalSpin = new JSpinner();
 		decimalSpin.setModel(new SpinnerNumberModel(0, 0, 99, 1));
 		decimalSpin.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		decimalSpin.setBackground(Color.WHITE);
-		decimalSpin.setBounds(208, 208, 45, 26);
+		decimalSpin.setBounds(209, 184, 45, 26);
 		contentPane.add(decimalSpin);
 		
 		JLabel label_1 = new JLabel("\u20AC");
 		label_1.setHorizontalAlignment(SwingConstants.LEFT);
 		label_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		label_1.setBounds(263, 209, 9, 25);
+		label_1.setBounds(264, 185, 9, 25);
 		contentPane.add(label_1);
 		
 		JLabel lblTaglia = new JLabel("Taglia:");
 		lblTaglia.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTaglia.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblTaglia.setBounds(68, 245, 66, 26);
+		lblTaglia.setBounds(69, 221, 66, 26);
 		contentPane.add(lblTaglia);
 		
 		JComboBox<String> tagliaCombo = new JComboBox<String>();
 		tagliaCombo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		tagliaCombo.setMaximumRowCount(5);
 		tagliaCombo.setBackground(Color.WHITE);
-		tagliaCombo.setBounds(144, 248, 75, 25);
+		tagliaCombo.setBounds(145, 224, 75, 25);
 		contentPane.add(tagliaCombo);
 		tagliaCombo.addItem("S");
 		tagliaCombo.addItem("M");
@@ -183,39 +170,39 @@ public class AggiungiArticolo extends JFrame {
 		JLabel lblColore = new JLabel("Colore:");
 		lblColore.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblColore.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblColore.setBounds(78, 282, 56, 26);
+		lblColore.setBounds(79, 258, 56, 26);
 		contentPane.add(lblColore);
 		
 		coloreField = new JTextField();
 		coloreField.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		coloreField.setColumns(10);
-		coloreField.setBounds(144, 282, 155, 26);
+		coloreField.setBounds(145, 258, 155, 26);
 		contentPane.add(coloreField);
 		
-		JLabel lblQuantit = new JLabel("Quantit\u00E1:");
+		JLabel lblQuantit = new JLabel("Scorta:");
 		lblQuantit.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblQuantit.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblQuantit.setBounds(228, 245, 71, 26);
+		lblQuantit.setBounds(229, 221, 53, 26);
 		contentPane.add(lblQuantit);
 		
 		JSpinner quantitaSpin = new JSpinner();
 		quantitaSpin.setBackground(Color.WHITE);
 		quantitaSpin.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		quantitaSpin.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		quantitaSpin.setBounds(309, 245, 45, 26);
+		quantitaSpin.setBounds(292, 221, 45, 26);
 		contentPane.add(quantitaSpin);
 		
 		JLabel lblReparto = new JLabel("Reparto:");
 		lblReparto.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblReparto.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		lblReparto.setBounds(54, 319, 80, 26);
+		lblReparto.setBounds(55, 295, 80, 26);
 		contentPane.add(lblReparto);
 		
 		JComboBox<String> repartoCombo = new JComboBox<String>();
 		repartoCombo.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		repartoCombo.setMaximumRowCount(5);
 		repartoCombo.setBackground(Color.WHITE);
-		repartoCombo.setBounds(144, 319, 155, 26);
+		repartoCombo.setBounds(145, 295, 155, 26);
 		contentPane.add(repartoCombo);
 		repartoCombo.addItem("Maschile");
 		repartoCombo.addItem("Femminile");
@@ -261,30 +248,28 @@ public class AggiungiArticolo extends JFrame {
 				float prezzo = Float.parseFloat(intSpin.getValue().toString().concat(".").concat(decimalSpin.getValue().toString()));
 				int qta = Integer.parseInt(quantitaSpin.getValue().toString());
 				
-				if((idField.getText().isEmpty()) || (nomeField.getText().isEmpty()) || (coloreField.getText().isEmpty()) || (prezzo == 0) || (qta == 0)) {
+				if((nomeField.getText().isEmpty()) || (coloreField.getText().isEmpty()) || (prezzo == 0) || (qta == 0)) {
 					errore.setText("*Tutti i campi devono essere valorizzati correttamente!");;
 				}
 				else {
 					errore.setVisible(false);
 					
 					Articolo artnuovo = new Articolo();
-					artnuovo.setIdarticolo(idField.getText());
 					artnuovo.setNome(nomeField.getText());
 					artnuovo.setDescrizione(descrizioneCombo.getSelectedItem().toString());
 					artnuovo.setPrezzo(prezzo);
 					artnuovo.setTaglia(tagliaCombo.getSelectedItem().toString());
 					artnuovo.setColore(coloreField.getText());
 					artnuovo.setReparto(repartoCombo.getSelectedItem().toString());
-					artnuovo.setQuantita(qta);
+					artnuovo.setDisponibilita(qta);
 					
 					if(c.insertArticolo(artnuovo)) {
 						OKpopup ok = new OKpopup();
-						ok.setLocationRelativeTo(null);
+						OKpopup.allert.setText("Articolo aggiunto al database!");
 						ok.setVisible(true);
 					}
 					else {
 						Errore e = new Errore();
-						e.setLocationRelativeTo(null);
 						e.setVisible(true);
 					}
 				}

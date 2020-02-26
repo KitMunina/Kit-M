@@ -50,6 +50,11 @@ public class LoginAdmin extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginAdmin() {
+		inizializzaFrame();
+		setLocationRelativeTo(null);
+	}
+	
+	private void inizializzaFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setBounds(100, 100, 400, 250);

@@ -3,16 +3,16 @@ package main;
 import java.util.ArrayList;
 
 public class Magazzino {
-	private String idmagazzino;
+	private int idmagazzino;
 	private String indirizzo;
 	private String citta;
 	ArrayList<Articolo> articoli;
 	
-	public String getIdmagazzino() {
+	public int getIdmagazzino() {
 		return idmagazzino;
 	}
 	
-	public void setIdmagazzino(String idmagazzino) {
+	public void setIdmagazzino(int idmagazzino) {
 		this.idmagazzino = idmagazzino;
 	}
 	

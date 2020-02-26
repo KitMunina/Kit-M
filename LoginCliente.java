@@ -43,7 +43,6 @@ public class LoginCliente extends JFrame {
 			public void run() {
 				try {
 					LoginCliente frame = new LoginCliente();
-					frame.setLocationRelativeTo(null);
 				    frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,6 +55,11 @@ public class LoginCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginCliente() {
+		inizializzaFrame();
+		setLocationRelativeTo(null);
+	}
+	
+	private void inizializzaFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setBounds(100, 100, 400, 250);
@@ -69,7 +73,7 @@ public class LoginCliente extends JFrame {
 		email.setBackground(Color.WHITE);
 		email.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		email.setColumns(10);
-		email.setBounds(35, 83, 220, 20);
+		email.setBounds(35, 83, 220, 23);
 		contentPane.add(email);
 		
 		JLabel lblEmail = new JLabel("E-mail:");
@@ -82,7 +86,7 @@ public class LoginCliente extends JFrame {
 		password.setToolTipText("");
 		password.setBackground(Color.WHITE);
 		password.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
-		password.setBounds(35, 144, 220, 20);
+		password.setBounds(35, 144, 220, 23);
 		contentPane.add(password);
 		
 		JLabel lblPasswrod = new JLabel("Password:");
@@ -128,11 +132,36 @@ public class LoginCliente extends JFrame {
 		logbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(email.getText().isEmpty() || password.getText().isEmpty()) {
+					getToolkit().beep();
 					errore.setText("* Inserire email e password!");
 				}
 				else {
 					if(c.checkUserLogin(email.getText(), password.getText())) {
+						Cliente cliente = new Cliente();
+						cliente = c.getUser(email.getText(), password.getText());
+						Homepage.cliente = cliente;
+						
+						Carrello carrello = new Carrello();
+						carrello = c.getCarrelloOf(cliente);
+						Homepage.carrello = carrello;
+												
+						Homepage.loginstatuscustomer = true;
+						Homepage.cartbutton.setEnabled(true);
+						Homepage.adminlogin.setEnabled(false);
+						Homepage.username.setText("Ciao "+cliente.getNome());
+						
+						getToolkit().beep();
 						dispose();
+						
+						AccessoEseguito signed = new AccessoEseguito();
+						signed.ciao.setText("Bentornato in Kit&M "+cliente.getNome()+"!");
+						signed.setVisible(true);
+					}
+					else {
+						getToolkit().beep();
+						Errore error = new Errore();
+						Errore.errore.setText("Nessun utente trovato con email e password inserite!");
+						error.setVisible(true);
 					}
 				}
 			}
@@ -141,5 +170,21 @@ public class LoginCliente extends JFrame {
 		logbtn.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		logbtn.setBounds(245, 204, 145, 35);
 		contentPane.add(logbtn);
+		
+		JButton regbtn = new JButton("Registrati");
+		regbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Registrazione r = new Registrazione();
+				r.setVisible(true);
+			}
+		});
+		regbtn.setVerticalAlignment(SwingConstants.BOTTOM);
+		regbtn.setForeground(new Color(30, 144, 255));
+		regbtn.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
+		regbtn.setBounds(146, 225, 89, 14);
+		regbtn.setBorder(BorderFactory.createEmptyBorder());
+		regbtn.setBackground(Color.WHITE);
+		contentPane.add(regbtn);
 	}
 }

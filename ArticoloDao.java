@@ -15,4 +15,5 @@ public interface ArticoloDao {
 	public boolean insertArticolo(Articolo artnuovo);
 	public boolean updateArticolo(Articolo artedit);
 	public boolean deleteArticolo(Articolo artremove);
+	public void updateQuantityItemAfterPayment(int idarticolo, int quantita);
 }

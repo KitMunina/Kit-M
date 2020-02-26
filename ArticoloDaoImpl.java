@@ -40,21 +40,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllArticoli() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select a.idarticolo,a.nome,a.descrizione,a.prezzo,a.taglia,a.colore,a.reparto,a.quantita from articolo a join magazzino m on (a.idmagazzino=m.idmagazzino) order by a.idarticolo";
+			String query ="select a.idarticolo,a.nome,a.descrizione,a.prezzo,a.taglia,a.colore,a.reparto,a.disponibilita from articolo a join magazzino m on (a.idmagazzino=m.idmagazzino) order by a.idarticolo";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 			
 			while (rs.next()) {
 				Articolo a = new Articolo();
 				
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 				
 				articoli.add(a);
 			}
@@ -70,21 +70,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllMale() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where reparto='Maschile'";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,disponibilita from articolo where reparto='Maschile'";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 			
 			while (rs.next()) {
 				Articolo a = new Articolo();
 				
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 				
 				articoli.add(a);
 			}
@@ -101,21 +101,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllFemale() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where reparto='Femminile'";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,disponibilita from articolo where reparto='Femminile'";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 			
 			while (rs.next()) {
 				Articolo a = new Articolo();
 				
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 				
 				articoli.add(a);
 			}
@@ -132,21 +132,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllUpperParts() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Tshirt','Felpa','Camicia')";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,disponibilita from articolo where descrizione in('Tshirt','Felpa','Camicia')";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 		
 			while (rs.next()) {
 				Articolo a = new Articolo();
 			
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 			
 				articoli.add(a);
 			}
@@ -162,21 +162,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllLowerParts() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Gonna','Pantalone')";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,disponibilita from articolo where descrizione in('Gonna','Pantalone')";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 		
 			while (rs.next()) {
 				Articolo a = new Articolo();
 			
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 			
 				articoli.add(a);
 			}
@@ -192,21 +192,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllShoes() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Scarpe','Calzini')";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,disponibilita from articolo where descrizione in('Scarpe','Calzini')";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 		
 			while (rs.next()) {
 				Articolo a = new Articolo();
 			
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 			
 				articoli.add(a);
 			}
@@ -222,21 +222,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllOvercoats() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in('Cappotto','Giubbino')";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,disponibilita from articolo where descrizione in('Cappotto','Giubbino')";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 		
 			while (rs.next()) {
 				Articolo a = new Articolo();
 			
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 			
 				articoli.add(a);
 			}
@@ -252,21 +252,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllUnderwears() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione='Intimo'";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,disponibilita from articolo where descrizione='Intimo'";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 		
 			while (rs.next()) {
 				Articolo a = new Articolo();
 			
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 			
 				articoli.add(a);
 			}
@@ -282,21 +282,21 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	public List<Articolo> getAllAccessories() {
 		try {
 			Statement s = connection.createStatement();
-			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,quantita from articolo where descrizione in ('Borsa','Cappello','Orologio')";
+			String query ="select idarticolo,nome,descrizione,prezzo,taglia,colore,reparto,disponibilita from articolo where descrizione in ('Borsa','Cappello','Orologio')";
 			ResultSet rs = s.executeQuery(query);
 			List<Articolo> articoli = new ArrayList<Articolo>();
 		
 			while (rs.next()) {
 				Articolo a = new Articolo();
 			
-				a.setIdarticolo(rs.getString(1));
+				a.setIdarticolo(rs.getInt(1));
 				a.setNome(rs.getString(2));
 				a.setDescrizione(rs.getString(3));
 				a.setPrezzo(rs.getFloat(4));
 				a.setTaglia(rs.getString(5));
 				a.setColore(rs.getString(6));
 				a.setReparto(rs.getString(7));
-				a.setQuantita(rs.getInt(8));
+				a.setDisponibilita(rs.getInt(8));
 			
 				articoli.add(a);
 			}
@@ -311,20 +311,19 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	@Override
 	public boolean insertArticolo(Articolo artnuovo) {
 		try {
-			String query = "insert into articolo values (?,?,?,?,?,?,?,?,?,?)";
+			String query = "insert into articolo (nome,descrizione,prezzo,taglia,colore,reparto,disponibilita,piva,idmagazzino) values (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement s = connection.prepareStatement(query);
 			
 			s.clearParameters();
-			s.setString(1, artnuovo.getIdarticolo());
-			s.setString(2, artnuovo.getNome());
-			s.setString(3, artnuovo.getDescrizione());
-			s.setFloat(4, artnuovo.getPrezzo());
-			s.setString(5, artnuovo.getTaglia());
-			s.setString(6, artnuovo.getColore());
-			s.setString(7, artnuovo.getReparto());
-			s.setInt(8, artnuovo.getQuantita());
-			s.setString(9,"0001");
-			s.setString(10, "123456789");
+			s.setString(1, artnuovo.getNome());
+			s.setString(2, artnuovo.getDescrizione());
+			s.setFloat(3, artnuovo.getPrezzo());
+			s.setString(4, artnuovo.getTaglia());
+			s.setString(5, artnuovo.getColore());
+			s.setString(6, artnuovo.getReparto());
+			s.setInt(7, artnuovo.getDisponibilita());
+			s.setString(8, "123456789");
+			s.setInt(9, 1);
 			
 			s.executeUpdate();
 			
@@ -340,15 +339,15 @@ public class ArticoloDaoImpl implements ArticoloDao {
 	@Override
 	public boolean updateArticolo(Articolo artedit) {
 		try {
-			String query ="update articolo set prezzo=?, taglia=?, colore=?, quantita=? where idarticolo=?";
+			String query ="update articolo set prezzo=?, taglia=?, colore=?, disponibilita=? where idarticolo=?";
 			PreparedStatement ps = connection.prepareStatement(query);
 			
 			ps.clearParameters();
 			ps.setFloat(1, artedit.getPrezzo());
 			ps.setString(2, artedit.getTaglia());
 			ps.setString(3, artedit.getColore());
-			ps.setInt(4, artedit.getQuantita());
-			ps.setString(5, artedit.getIdarticolo());
+			ps.setInt(4, artedit.getDisponibilita());
+			ps.setInt(5, artedit.getIdarticolo());
 			
 			ps.executeUpdate();
 			
@@ -366,7 +365,7 @@ public class ArticoloDaoImpl implements ArticoloDao {
 			PreparedStatement ps = connection.prepareStatement(query);
 		
 			ps.clearParameters();
-			ps.setString(1, artremove.getIdarticolo());
+			ps.setInt(1, artremove.getIdarticolo());
 			
 			ps.executeUpdate();
 			
@@ -374,6 +373,22 @@ public class ArticoloDaoImpl implements ArticoloDao {
 		}catch (Exception e) {
 			System.err.println("Errore SQL");
 			return false;
+		}
+	}
+	
+	@Override
+	public void updateQuantityItemAfterPayment(int idarticolo, int quantita) {
+		try {
+			String query ="update articolo set disponibilita=disponibilita-? where idarticolo=?";
+			PreparedStatement ps = connection.prepareStatement(query);
+			
+			ps.clearParameters();
+			ps.setInt(1, quantita);
+			ps.setInt(2, idarticolo);
+			
+			ps.executeUpdate();
+		}catch (Exception e) {
+			System.err.println("Errore SQL");
 		}
 	}
 }

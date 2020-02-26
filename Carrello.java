@@ -1,19 +1,18 @@
 package main;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Carrello {
-	private String idcarrello;
+	private int idcarrello;
 	private int narticoli;
 	private float totale;
-	private String cliente;
-	private ArrayList<Articolo> articoli;
-	
-	public String getIdcarrello() {
+	private Cliente cliente;
+
+	public int getIdcarrello() {
 		return idcarrello;
 	}
 	
-	public void setIdcarrello(String idcarrello) {
+	public void setIdcarrello(int idcarrello) {
 		this.idcarrello = idcarrello;
 	}
 	
@@ -32,20 +31,12 @@ public class Carrello {
 	public void setTotale(float totale) {
 		this.totale = totale;
 	}
-	
-	public String getCliente() {
+
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(String cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
-	
-	public ArrayList<Articolo> getArticoli() {
-		return articoli;
-	}
-	
-	public void setArticoli(ArrayList<Articolo> articoli) {
-		this.articoli = articoli;
 	}
 }

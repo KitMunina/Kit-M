@@ -22,7 +22,7 @@ import java.awt.SystemColor;
 public class AccessoEseguito extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	public JLabel ciao = new JLabel();
+	static JLabel ciao = new JLabel();
 	
 	/**
 	 * Launch the application.
@@ -30,8 +30,6 @@ public class AccessoEseguito extends JDialog {
 	public static void main(String[] args) {
 		try {
 			AccessoEseguito dialog = new AccessoEseguito();
-			dialog.setLocationRelativeTo(null);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,6 +40,13 @@ public class AccessoEseguito extends JDialog {
 	 * Create the dialog.
 	 */
 	public AccessoEseguito() {
+		inizializzaPopup();
+		setLocationRelativeTo(null);
+	}
+	
+	private void inizializzaPopup() {
+		getToolkit().beep();
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 450, 200);
 		setUndecorated(true);

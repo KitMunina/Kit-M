@@ -39,6 +39,7 @@ public class AmministratoreDaoImpl implements AmministratoreDao {
 			String query ="select * from amministratore";
 			ResultSet rs = s.executeQuery(query);
 			List<Amministratore> amministratori = new ArrayList<Amministratore>();
+			Controller c = new Controller();
 			
 			while (rs.next()) {
 				Amministratore a = new Amministratore();
@@ -46,6 +47,7 @@ public class AmministratoreDaoImpl implements AmministratoreDao {
 				a.setPiva(rs.getString(1));
 				a.setNome(rs.getString(2));
 				a.setCognome(rs.getString(3));
+				a.setArticoli(c.getAllArticoli());
 
 				amministratori.add(a);
 			}

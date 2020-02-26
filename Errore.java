@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 public class Errore extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	static JLabel errore = new JLabel();
 
 	/**
 	 * Launch the application.
@@ -29,7 +30,6 @@ public class Errore extends JDialog {
 	public static void main(String[] args) {
 		try {
 			Errore dialog = new Errore();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,13 +40,16 @@ public class Errore extends JDialog {
 	 * Create the dialog.
 	 */
 	public Errore() {
+		inizializzaPopup();
+		setLocationRelativeTo(null);
+	}
+	
+	private void inizializzaPopup() {
+		getToolkit().beep();
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 450, 200);
 		setUndecorated(true);
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x, y);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new LineBorder(Color.GRAY, 3, true));
@@ -64,11 +67,10 @@ public class Errore extends JDialog {
 		button.setBounds(365, 154, 75, 35);
 		contentPanel.add(button);
 		
-		JLabel lblOopsQualcosa = new JLabel("Oops... qualcosa \u00E9 andato storto");
-		lblOopsQualcosa.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOopsQualcosa.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		lblOopsQualcosa.setBounds(10, 73, 430, 70);
-		contentPanel.add(lblOopsQualcosa);
+		errore.setHorizontalAlignment(SwingConstants.CENTER);
+		errore.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
+		errore.setBounds(10, 73, 430, 70);
+		contentPanel.add(errore);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Errore.class.getResource("/unknownerror.gif")));

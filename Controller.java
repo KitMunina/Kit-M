@@ -1,11 +1,15 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
 	private ArticoloDao artdao = new ArticoloDaoImpl();
 	private AmministratoreDao admdao = new AmministratoreDaoImpl();
 	private ClienteDao cldao = new ClienteDaoImpl();
+	private CarrelloDao cardao = new CarrelloDaoImpl();
+	private PagamentoDao pagdao = new PagamentoDaoImpl();
+	private OrdineDao orderdao = new OrdineDaoImpl();
 	
 	public List<Articolo> getAllArticoli() { //Lista di tutti gli articoli presenti in magazzino
 		return artdao.getAllArticoli();
@@ -13,6 +17,10 @@ public class Controller {
 	
 	public List<Articolo> getAllMale() { //Lista di tutti gli articoli maschili
 		return artdao.getAllMale();
+	}
+	
+	public List<Articolo> getAllFemale() { //lista di tutti gli articoli femminili
+		return artdao.getAllFemale();
 	}
 	
 	public List<Articolo> getAllUpperParts() { //Lista di tutti gli articoli "parti superiori"
@@ -57,32 +65,32 @@ public class Controller {
 	}
 	
 	public boolean checkUserLogin(String email, String password) { //verifica le credenziali di accesso del cliente
-		List<Cliente> c = cldao.getCustomers();
-		int i = 0;
-		
-		while ((i<c.size()) && (!c.get(i).getEmail().equals(email) && !c.get(i).getPassword().equals(password))) {
-			i++;
-		}
-		
-		if(i<c.size()) {
-			Homepage h = new Homepage();
-			h.loggedc = true;
-			h.username.setText("Ciao, "+c.get(i).getNome());
-			h.setVisible(true);
-			h.setLocationRelativeTo(null);
-			
-			AccessoEseguito ac = new AccessoEseguito();
-			ac.setLocationRelativeTo(null);
-			ac.ciao.setText("Ciao "+c.get(i).getNome()+", bentornato in Kit&M!");
-			ac.setVisible(true);
-			return true;
-		}
-		else {
-			Errore e = new Errore();
-			e.setLocationRelativeTo(null);
-			e.setVisible(true);
-			return false;
-		}
+		return cldao.checkLogin(email, password);
+	}
+	
+	public Cliente getUser(String email, String password) { //ritorna il cliente con determinata email e password
+		return cldao.getUser(email, password);
+	}
+	
+	public boolean insertUser(String nome, String cognome, String email, String password, String indirizzo, String citta) { //registrazione di un nuovo utente
+		return cldao.insertUser(nome, cognome, email, password, indirizzo, citta);
+	}
+	
+	public void insertCart(String email, String password) {
+		Cliente cliente = getUser(email, password);
+		cardao.insertCart(cliente);
+	}
+	
+	public Carrello getCarrelloOf(Cliente cliente) { //ritorna il carrello di un determinato cliente
+		return cardao.getCarrelloOf(cliente);
+	}
+	
+	public List<ContenutoCarrello> getCartContent(int idcarrello) { //restituisce il contenuto del carrello
+		return cardao.getCartContent(idcarrello);		
+	}
+	
+	public boolean removeFromCart(int idart) { //rimuove un articolo dal carrello
+		return cardao.removeFromCart(idart);
 	}
 	
 	public boolean checkAdminLogin(String piva) { //verifica le credenziali di accesso al pannello di controllo dell'amministratore
@@ -99,8 +107,7 @@ public class Controller {
 			pa.setVisible(true);
 
 			AccessoEseguito ac = new AccessoEseguito();
-			ac.setLocationRelativeTo(null);
-			ac.ciao.setText(a.get(i).getNome()+", hai l'accesso al pannello di controllo");
+			AccessoEseguito.ciao.setText(a.get(i).getNome()+", hai l'accesso al pannello di controllo");
 			ac.setVisible(true);
 			
 			return true;
@@ -113,11 +120,11 @@ public class Controller {
 		}
 	}
 	
-	public Articolo findArticolo(String idarticolo) { //effettua la ricerca di un articolo per id
+	public Articolo findArticolo(int idarticolo) { //effettua la ricerca di un articolo per id
 		List<Articolo> a = artdao.getAllArticoli();
 		int i = 0;
 		
-		while ((i<a.size()) && (!a.get(i).getIdarticolo().equals(idarticolo))) {
+		while ((i<a.size()) && (a.get(i).getIdarticolo() != idarticolo)) {
 			i++;
 		}
 		
@@ -130,5 +137,49 @@ public class Controller {
 			e.setVisible(true);
 			return null;
 		}
+	}
+	
+	public boolean addToCart(int idarticolo, int idcarrello, int quantita) { //aggiunge un articolo nel carrello con la rispettiva quantitá
+		return cardao.addToCart(idarticolo, idcarrello, quantita);
+	}
+	
+	public boolean insertOrderPayment(Cliente cliente, float totale) { //inserisce il pagamento nel database
+		return pagdao.insertPayment(totale, cliente, orderdao.getOrder());
+	}
+	
+	public boolean insertOrder() { //inserisce l'ordine nel database
+		return orderdao.insertOrder();
+	}
+	
+	public void insertOrderDetails() { //inserimento dei dettagli dell'ordine
+		List<ContenutoCarrello> cc = getCartContent(Homepage.carrello.getIdcarrello());
+		
+		for(int i = 0; i < cc.size(); i++) {
+			orderdao.insertOrderDetails(cc.get(i).getIdarticolo(), orderdao.getOrder().getIdordine(), cc.get(i).getQuantita(), findArticolo(cc.get(i).getIdarticolo()).getPrezzo());
+		}
+	}
+	
+	public void updateQuantityItemAfterPayment() { //aggiorna la quantita in magazzino dopo un acquisto
+		List<ContenutoCarrello> cc = getCartContent(Homepage.carrello.getIdcarrello());
+		
+		for(int i = 0; i < cc.size(); i++) {
+			artdao.updateQuantityItemAfterPayment(cc.get(i).getIdarticolo(), cc.get(i).getQuantita());
+		}
+	}
+	
+	public float getTotalFromPayment(Ordine ordine) { //restituisce il totale di un ordine
+		return pagdao.getTotalFromPayment(ordine);
+	}
+	
+	public boolean updateCustomer(String password, String indirizzo, String citta) { //aggiorna le informazioni di un cliente
+		return cldao.updateCustomer(password, indirizzo, citta);
+	}
+	
+	public void svuotaCarrello(Carrello c) { //svuota il carrello
+		cardao.svuotaCarrello(c);
+	}
+	
+	public void updateCartContent(int idart, int qta) { //aggiorna la quantita di un articolo nel carrello
+		cardao.updateCartContent(idart, qta);
 	}
 }

@@ -1,7 +1,10 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
-	private String idcliente;
+	private int idcliente;
 	private String nome;
 	private String cognome;
 	private String email;
@@ -9,11 +12,11 @@ public class Cliente {
 	private String indirizzo;
 	private String citta;
 	
-	public String getIdcliente() {
+	public int getIdcliente() {
 		return idcliente;
 	}
 	
-	public void setIdcliente(String idcliente) {
+	public void setIdcliente(int idcliente) {
 		this.idcliente = idcliente;
 	}
 	
@@ -63,5 +66,5 @@ public class Cliente {
 	
 	public void setCitta(String citta) {
 		this.citta = citta;
-	}	
+	}
 }

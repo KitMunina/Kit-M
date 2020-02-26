@@ -14,23 +14,23 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.List;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JButton;
-import javax.swing.BorderFactory;
 import java.awt.SystemColor;
+import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import javax.swing.SpinnerNumberModel;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
-
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
-public class Soprabiti extends JFrame {
+public class RepartoMaschile extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -43,7 +43,7 @@ public class Soprabiti extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Soprabiti frame = new Soprabiti();
+					RepartoMaschile frame = new RepartoMaschile();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,11 +55,11 @@ public class Soprabiti extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Soprabiti() {
+	public RepartoMaschile() {
 		inizializzaFrame();
 		setLocationRelativeTo(null);
 		
-		List<Articolo> a = c.getAllOvercoats();
+		List<Articolo> a = c.getAllMale();
 		String col[] = {"ID","Nome","Prezzo","Taglia","Colore","Reparto","Disponibilita"};
 		DefaultTableModel model = new DefaultTableModel(col, 0) {
 			@Override
@@ -92,10 +92,10 @@ public class Soprabiti extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblSoprabiti = new JLabel("Soprabiti");
-		lblSoprabiti.setFont(new Font("Tw Cen MT", Font.PLAIN, 25));
-		lblSoprabiti.setBounds(10, 11, 233, 30);
-		contentPane.add(lblSoprabiti);
+		JLabel lblRepartoMaschile = new JLabel("Reparto maschile");
+		lblRepartoMaschile.setFont(new Font("Tw Cen MT", Font.PLAIN, 25));
+		lblRepartoMaschile.setBounds(10, 11, 233, 30);
+		contentPane.add(lblRepartoMaschile);
 		
 		JLabel label = new JLabel("ID");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -122,7 +122,7 @@ public class Soprabiti extends JFrame {
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		label_3.setForeground(new Color(100, 149, 237));
 		label_3.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
-		label_3.setBounds(299, 52, 76, 21);
+		label_3.setBounds(299, 52, 75, 21);
 		contentPane.add(label_3);
 		
 		JLabel label_4 = new JLabel("Colore");
@@ -157,28 +157,16 @@ public class Soprabiti extends JFrame {
 		contentPane.add(table);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 84, 580, 259);
+		scrollPane.setBounds(10, 84, 580, 264);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane);
-		
-		JButton button = new JButton("");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		button.setIcon(new ImageIcon(Soprabiti.class.getResource("/backbutton.png")));
-		button.setBorder(BorderFactory.createEmptyBorder());
-		button.setBackground(Color.WHITE);
-		button.setBounds(10, 354, 35, 35);
-		contentPane.add(button);
 		
 		JSpinner quantitaSpin = new JSpinner();
 		quantitaSpin.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		quantitaSpin.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		quantitaSpin.setEnabled(false);
-		quantitaSpin.setBounds(360, 358, 60, 25);
+		quantitaSpin.setBounds(360, 359, 60, 25);
 		contentPane.add(quantitaSpin);
 		
 		JLabel lblqta = new JLabel("Quantit\u00E1:");
@@ -186,7 +174,7 @@ public class Soprabiti extends JFrame {
 		lblqta.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		lblqta.setEnabled(false);
 		lblqta.setBounds(270, 354, 80, 35);
-		contentPane.add(lblqta);
+		contentPane.add(label);
 		
 		JButton addtocart = new JButton("Aggiungi");
 		addtocart.addActionListener(new ActionListener() {
@@ -197,14 +185,13 @@ public class Soprabiti extends JFrame {
 				
 				if(temp.getDisponibilita() < quantita) {
 					Errore err = new Errore();
-					err.errore.setText("La quantitá richiesta non é disponibile!");
+					Errore.errore.setText("La quantitá richiesta non é disponibile!");
 					err.setVisible(true);
 				}
-				else {
+				else {					
 					if(Homepage.loginstatuscustomer) {
 						if(c.addToCart(temp.getIdarticolo(), Homepage.carrello.getIdcarrello(), quantita)) {
 							OKpopup ok = new OKpopup();
-							OKpopup.allert.setText("Articolo aggiunto nel carrello!");
 							ok.setVisible(true);
 						}
 						else {
@@ -221,7 +208,7 @@ public class Soprabiti extends JFrame {
 				}
 			}
 		});
-		addtocart.setIcon(new ImageIcon(Soprabiti.class.getResource("/cart_large.png")));
+		addtocart.setIcon(new ImageIcon(RepartoMaschile.class.getResource("/cart_large.png")));
 		addtocart.setForeground(Color.BLACK);
 		addtocart.setFont(new Font("Tw Cen MT", Font.PLAIN, 18));
 		addtocart.setEnabled(false);
@@ -229,6 +216,18 @@ public class Soprabiti extends JFrame {
 		addtocart.setBackground(SystemColor.menu);
 		addtocart.setBounds(430, 354, 160, 35);
 		contentPane.add(addtocart);
+		
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		button.setIcon(new ImageIcon(RepartoMaschile.class.getResource("/backbutton.png")));
+		button.setBorder(BorderFactory.createEmptyBorder());
+		button.setBackground(Color.WHITE);
+		button.setBounds(10, 354, 35, 35);
+		contentPane.add(button);
 		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
